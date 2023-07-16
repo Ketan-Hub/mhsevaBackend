@@ -1,4 +1,5 @@
 const shopAct = require("../model/shopActMdl");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createshopAct = async (req, res) => {
   const {
@@ -132,10 +133,12 @@ exports.updateshopAct = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.ownerPassport_photo = (req, res) => {
+exports.ownerPassport_photo =async (req, res) => {
   let ownerPassport_photo;
   if (req.file) {
-    ownerPassport_photo = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    ownerPassport_photo =Location;
   }
   shopAct
     .findOneAndUpdate({ _id: req.params.id }, { ownerPassport_photo })
@@ -149,10 +152,12 @@ exports.ownerPassport_photo = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.ownerSignatureAsPer_PAN = (req, res) => {
+exports.ownerSignatureAsPer_PAN =async (req, res) => {
   let ownerSignatureAsPer_PAN;
   if (req.file) {
-    ownerSignatureAsPer_PAN = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    ownerSignatureAsPer_PAN =Location;
   }
   shopAct
     .findOneAndUpdate({ _id: req.params.id }, { ownerSignatureAsPer_PAN })
@@ -166,10 +171,12 @@ exports.ownerSignatureAsPer_PAN = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.adharCard = (req, res) => {
+exports.adharCard = async(req, res) => {
   let adharCard;
   if (req.file) {
-    adharCard = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    adharCard =Location;
   }
   shopAct
     .findOneAndUpdate({ _id: req.params.id }, { adharCard })
@@ -183,10 +190,12 @@ exports.adharCard = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.shopPhotographFrom_FrontSide_WithBusinessBoard = (req, res) => {
+exports.shopPhotographFrom_FrontSide_WithBusinessBoard = async(req, res) => {
   let shopPhotographFrom_FrontSide_WithBusinessBoard;
   if (req.file) {
-    shopPhotographFrom_FrontSide_WithBusinessBoard = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    shopPhotographFrom_FrontSide_WithBusinessBoard =Location;
   }
   shopAct
     .findOneAndUpdate({ _id: req.params.id }, { shopPhotographFrom_FrontSide_WithBusinessBoard })
@@ -200,10 +209,12 @@ exports.shopPhotographFrom_FrontSide_WithBusinessBoard = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.selfDeclaration = (req, res) => {
+exports.selfDeclaration = async(req, res) => {
   let selfDeclaration;
   if (req.file) {
-    selfDeclaration = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    selfDeclaration =Location;
   }
   shopAct
     .findOneAndUpdate({ _id: req.params.id }, { selfDeclaration })
@@ -217,10 +228,12 @@ exports.selfDeclaration = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.ownerPANCard = (req, res) => {
+exports.ownerPANCard = async(req, res) => {
   let ownerPANCard;
   if (req.file) {
-    ownerPANCard = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    ownerPANCard =Location;
   }
   shopAct
     .findOneAndUpdate({ _id: req.params.id }, { ownerPANCard })
@@ -234,16 +247,57 @@ exports.ownerPANCard = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.oldShopAct_ForRenewal = (req, res) => {
+exports.oldShopAct_ForRenewal = async(req, res) => {
   let oldShopAct_ForRenewal;
   if (req.file) {
-    oldShopAct_ForRenewal = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    oldShopAct_ForRenewal =Location;
   }
   shopAct
     .findOneAndUpdate({ _id: req.params.id }, { oldShopAct_ForRenewal })
     .then((data) => {
       res.status(200).json({
         message: "oldShopAct_ForRenewal updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+
+exports.acknowledgmentDocument = async(req, res) => {
+  let acknowledgmentDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    acknowledgmentDocument =Location;
+  }
+  shopAct
+    .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "acknowledgmentDocument updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.finalDocument = async(req, res) => {
+  let finalDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    finalDocument =Location;
+  }
+  shopAct
+    .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "finalDocument updated successfully",
         data,
       });
     })

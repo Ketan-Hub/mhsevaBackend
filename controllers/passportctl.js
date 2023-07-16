@@ -1,4 +1,5 @@
 const passport = require("../model/passportmdl");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createpassport = async (req, res) => {
   const {
@@ -107,6 +108,64 @@ exports.updatepassport = (req, res) => {
     .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
     .then((data) => {
       res.json(data);
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+
+exports.acknowledgmentDocument = async(req, res) => {
+  let acknowledgmentDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    acknowledgmentDocument =Location;
+  }
+  passport
+    .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "acknowledgmentDocument updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.finalDocument = async(req, res) => {
+  let finalDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    finalDocument =Location;
+  }
+  passport
+    .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "finalDocument updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.zipAllDocuments = async(req, res) => {
+  let zipAllDocuments;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    zipAllDocuments =Location;
+  }
+  passport
+    .findOneAndUpdate({ _id: req.params.id }, { zipAllDocuments })
+    .then((data) => {
+      res.status(200).json({
+        message: "finalDocument updated successfully",
+        data,
+      });
     })
     .catch((error) => {
       res.status(400).json({ error: error.message });

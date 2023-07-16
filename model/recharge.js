@@ -3,9 +3,10 @@ const recharge =mongoose.Schema(
     {
         user:{type:String},
         mode:{type:String},
-        rechargeAmt:{type:Number},
-        totalRechargeAMt:{type:Number}
+        amount:{type:Number},
+        isExpence:{type:String,default:false},
+        expenceFor:{type:String}
     },
     {timestamps:true}
 );
-module.exports = mongoose.model("rechage", recharge);
+module.exports = mongoose.model("recharge", recharge);

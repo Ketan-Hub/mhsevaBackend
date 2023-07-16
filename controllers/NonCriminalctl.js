@@ -1,7 +1,13 @@
 const NonCriminal = require("../model/nonCrinalMdl");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createNonCriminal = async (req, res) => {
   const { 
+    application_type,
+    status,
+    createdBy,
+    createdByName,
+    Data:{
     statusfname,
     fullName_English,
     fullName_Marathi,
@@ -38,80 +44,48 @@ exports.createNonCriminal = async (req, res) => {
     previos_CastCerNum,
     previos_CastCerPlaceIssue,
     previos_CastCerIssuedDate,
-    Income_Source:[{
-        SourceType,
-        year:[{
-            years,
-            amount:{type:Number}
-        }]
-    }],
-    father_Occopation,
-    father_NameOfOrganization,
-    father_DEsignation_Rank,
-    father_Department,
-    father_salaryRange,
-    father_totalAnnualIncome,
-
-    father_DateOfJoinning,
-    father_pentionaldateOfRetirment,
-    father_typeOfbusness,
-    father_totalAmountInc,
-
-    Mother_Occopation,
-    Mother_NameOfOrganization,
-    Mother_DEsignation_Rank,
-    Mother_Department,
-    Mother_salaryRange,
-    Mother_totalAnnualIncome,
-    Mother_DateOfJoinning,
-    Mother_pentionaldateOfRetirment,
-    Mother_typeOfbusness,
-    Mother_totalAmountInc,
-    Spouse_Occopation,
-
-    Spouse_NameOfOrganization,
-    Spouse_DEsignation_Rank,
-    Spouse_Department,
-    Spouse_salaryRange,
-    Spouse_totalAnnualIncome,
-    Spouse_DateOfJoinning,
-    Spouse_pentionaldateOfRetirment,
-    Spouse_typeOfbusness,
-    Spouse_totalAmountInc,
-    oner_OfImmovableProp,
-    location_OfImmovableProp,
-    Area_OfImmovableProp,
-    TypeOfAgryLand,
-    AreaOfAgryLand,
-    Percentage_of_irrigatedland_as_per_constitutional,
-    own_both_irrigated_and_dry_land_percentage,
-    total_irrigated_land_as_a_percentage,
-    typeOfCultivation,
-    Cultivation_Location,
-    Cultivation_AreaOfIrrigationLand,
-    Cultivation_Location_of_property,
-    Cultivation_Details_of_property,
-    Cultivation_Current_use_of_property,
-    Are_you_an_income_tax_payee,
-    Have_you_paid_wealth_tax,
-    otherFamlyDetails_solution,
-    otherFamlyDetails_MotherName_English,
-    otherFamlyDetails_MotherName_Marathi,
-    otherFamlyDetails_solution_Spouse,
-    otherFamlyDetails_SpouseName_English,
-    otherFamlyDetails_SpouseName_Marathi,
-    otherFamlyDetails_District,
-    otherFamlyDetails_taluka,
-    otherFamlyDetails_village,
-    otherFamlyDetails_pincode,
-    reasonDec,
-    needEffidatvite
-    
-
+    propowner,
+    txtLocation,
+    txtarea,
+    ddlareaunits,
+    checkbox,
+    txtirriarea,
+    ddlunits,
+    txtpercentage,
+    txtformula,
+    txtceilingactform,
+    ddlcultitype,
+    txtcultilocation,
+    txtcultiarea,
+    ddlcultiunit,
+    txtproploc,
+    txtpropdetails,
+    txtpropuse,
+    CPH_radiobtnpayee,
+    radiobtnwealthtax,
+    ddlmothersal,
+    txtmothername,
+    txtmothername_LL,
+    ddlspousesal,
+    txtSpouseName,
+    txtspousename_LL,
+    ddlfam_dist,
+    ddlfam_Vill,
+    txtfam_pincode,
+    txtbenefreason,
+    ctl00$CPH$Affd
+    },
+    NonCreamyLayerincomeSource,
+    occupation_income ,
 
 
 } = req.body;
   const nonCriminal = new NonCriminal({
+    application_type,
+    status,
+    createdBy,
+    createdByName,
+    Data:{
     statusfname,
     fullName_English,
     fullName_Marathi,
@@ -148,76 +122,40 @@ exports.createNonCriminal = async (req, res) => {
     previos_CastCerNum,
     previos_CastCerPlaceIssue,
     previos_CastCerIssuedDate,
-    Income_Source:[{
-        SourceType,
-        year:[{
-            years,
-            amount:{type:Number}
-        }]
-    }],
-    father_Occopation,
-    father_NameOfOrganization,
-    father_DEsignation_Rank,
-    father_Department,
-    father_salaryRange,
-    father_totalAnnualIncome,
-    father_totalAnnualIncome,
-    father_DateOfJoinning,
-    father_pentionaldateOfRetirment,
-    father_typeOfbusness,
-    father_totalAmountInc,
-
-    Mother_Occopation,
-    Mother_NameOfOrganization,
-    Mother_DEsignation_Rank,
-    Mother_Department,
-    Mother_salaryRange,
-    Mother_totalAnnualIncome,
-    Mother_totalAnnualIncome,
-    Mother_DateOfJoinning,
-    Mother_pentionaldateOfRetirment,
-    Mother_typeOfbusness,
-    Mother_totalAmountInc,
-    Spouse_Occopation,
-
-    Spouse_NameOfOrganization,
-    Spouse_DEsignation_Rank,
-    Spouse_Department,
-    Spouse_salaryRange,
-    Spouse_totalAnnualIncome,
-    Spouse_totalAnnualIncome,
-    Spouse_DateOfJoinning,
-    Spouse_pentionaldateOfRetirment,
-    Spouse_typeOfbusness,
-    Spouse_totalAmountInc,
-    oner_OfImmovableProp,
-    location_OfImmovableProp,
-    Area_OfImmovableProp,
-    TypeOfAgryLand,
-    AreaOfAgryLand,
-    Percentage_of_irrigatedland_as_per_constitutional,
-    own_both_irrigated_and_dry_land_percentage,
-    total_irrigated_land_as_a_percentage,
-    typeOfCultivation,
-    Cultivation_Location,
-    Cultivation_AreaOfIrrigationLand,
-    Cultivation_Location_of_property,
-    Cultivation_Details_of_property,
-    Cultivation_Current_use_of_property,
-    Are_you_an_income_tax_payee,
-    Have_you_paid_wealth_tax,
-    otherFamlyDetails_solution,
-    otherFamlyDetails_MotherName_English,
-    otherFamlyDetails_MotherName_Marathi,
-    otherFamlyDetails_solution_Spouse,
-    otherFamlyDetails_SpouseName_English,
-    otherFamlyDetails_SpouseName_Marathi,
-    otherFamlyDetails_District,
-    otherFamlyDetails_taluka,
-    otherFamlyDetails_village,
-    otherFamlyDetails_pincode,
-    reasonDec,
-    needEffidatvite
+    propowner,
+    txtLocation,
+    txtarea,
+    ddlareaunits,
+    checkbox,
+    txtirriarea,
+    ddlunits,
+    txtpercentage,
+    txtformula,
+    txtceilingactform,
+    ddlcultitype,
+    txtcultilocation,
+    txtcultiarea,
+    ddlcultiunit,
+    txtproploc,
+    txtpropdetails,
+    txtpropuse,
+    CPH_radiobtnpayee,
+    radiobtnwealthtax,
+    ddlmothersal,
+    txtmothername,
+    txtmothername_LL,
+    ddlspousesal,
+    txtSpouseName,
+    txtspousename_LL,
+    ddlfam_dist,
+    ddlfam_Vill,
+    txtfam_pincode,
+    txtbenefreason,
+    ctl00$CPH$Affd
+    },
+    NonCreamyLayerincomeSource,
+    occupation_income 
+    
 })
 
 nonCriminal.save()
@@ -257,6 +195,202 @@ exports.updateNonCriminal= (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
+
+
+
+
+
+exports.reshaCard =async (req, res) => {
+  let reshaCard;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    reshaCard =Location;
+  }
+  NonCriminal
+    .findOneAndUpdate({ _id: req.params.id }, { reshaCard })
+    .then((data) => {
+      res.status(200).json({
+        message: "reshaCard updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.adharCard = async(req, res) => {
+  let adharCard;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    adharCard =Location;
+  }
+  NonCriminal
+    .findOneAndUpdate({ _id: req.params.id }, { adharCard })
+    .then((data) => {
+      res.status(200).json({
+        message: "adharCard updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.lightBill = async(req, res) => {
+  let lightBill;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    lightBill =Location;
+  }
+  NonCriminal
+    .findOneAndUpdate({ _id: req.params.id }, { lightBill })
+    .then((data) => {
+      res.status(200).json({
+        message: "adharCard updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.schoolLeaveCertificate = async(req, res) => {
+  let schoolLeaveCertificate;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    schoolLeaveCertificate =Location;
+  }
+  NonCriminal
+    .findOneAndUpdate({ _id: req.params.id }, { schoolLeaveCertificate })
+    .then((data) => {
+      res.status(200).json({
+        message: "school Leave Certificate updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.photo = async(req, res) => {
+  let photo;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    photo =Location;
+  }
+  NonCriminal
+    .findOneAndUpdate({ _id: req.params.id }, { photo })
+    .then((data) => {
+      res.status(200).json({
+        message: "photo updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.incomeCertficate3year = async(req, res) => {
+  let incomeCertficate3year;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    incomeCertficate3year =Location;
+  }
+  NonCriminal
+    .findOneAndUpdate({ _id: req.params.id }, { incomeCertficate3year })
+    .then((data) => {
+      res.status(200).json({
+        message: "income Certficate 3year updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.castProof =async (req, res) => {
+  let castProof;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    castProof =Location;
+  }
+  NonCriminal
+    .findOneAndUpdate({ _id: req.params.id }, { castProof })
+    .then((data) => {
+      res.status(200).json({
+        message: "castProof updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.taxRecipt = async(req, res) => {
+  let taxRecipt;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    taxRecipt =Location;
+  }
+  NonCriminal
+    .findOneAndUpdate({ _id: req.params.id }, { taxRecipt })
+    .then((data) => {
+      res.status(200).json({
+        message: "taxRecipt updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.acknowledgmentDocument = async(req, res) => {
+  let acknowledgmentDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    acknowledgmentDocument =Location;
+  }
+  NonCriminal
+    .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "acknowledgmentDocument updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.finalDocument = async(req, res) => {
+  let finalDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    finalDocument =Location;
+  }
+  NonCriminal
+    .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "finalDocument updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+
 exports.deletNonCriminal = (req, res) => {
     NonCriminal
     .findOneAndDelete({ _id: req.params.id })

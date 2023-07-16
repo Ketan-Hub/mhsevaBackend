@@ -4,30 +4,34 @@ const mongoose=require('mongoose')
 const gazetteSchema=mongoose.Schema(
 
     {
+      application_type:{type:String},
+      status:{type:String},
+      createdBy:{type:String},
+      createdByName:{type:String},
 
-      service_type:{type:String,enum:['name change','Dob change'],required:true},
+      service_type:{type:String},
 
-      type_cast:{type:String,enum:['Open/OBC','SC','SBC','ST','VJ','NT'],required:true},
+      type_cast:{type:String},
 
-      title:{type:String , enum:['Mr','Mrs','Ms'],required:true},
+      title:{type:String },
 
-      firstName:{type:String,required:true},
+      firstName:{type:String,},
 
-      middleName:{type:String,required:true},
+      middleName:{type:String,},
 
-      lastName:{type:String,required:true},
+      lastName:{type:String,},
 
-      mobileNumber:{type:Number,required:true},
+      mobileNumber:{type:Number,},
 
-      email:{type:String,required:true},
+      email:{type:String,},
 
-      adharNumber:{type:Number,required:true},
+      adharNumber:{type:Number,},
 
-      mobileNumber_registered_with_adharCard:{type:Boolean,required:true},
+      mobileNumber_registered_with_adharCard:{type:String,},
 
-      gender:{type:String,enum:['male','female','others'],required:true},
+      gender:{type:String,enum:['male','female','others'],},
 
-      Dob:{type:String,required:true},
+      Dob:{type:String,},
 
       Old_Dob:{type:String},
 
@@ -35,10 +39,13 @@ const gazetteSchema=mongoose.Schema(
       OldName:{type:String},
       NewName:{type:String},
 
-      reason:{type:String,required:true},
+      reason:{type:String,},
 
-      address:{type:String,required:true},
+      address:{type:String,},
+      note:{type:String},
       //uploads
+      acknowledgmentDocument:{type:String},
+      finalDocument:{type:String},
 
       photoID:{type:String},
 
@@ -54,7 +61,9 @@ const gazetteSchema=mongoose.Schema(
 
       PresentName_Proof:{type:String},
 
-      Cast_Certificate:{type:String}
+      Cast_Certificate:{type:String},
+      formPrice :{type: Number},
+      retailerName:{type:String},
 
 
     },

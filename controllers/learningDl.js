@@ -1,10 +1,36 @@
 const learningDl = require("../model/learningDl");
-const { param } = require("../routes/learnning");
-
+// const { param, uploadToS3 } = require("../routes/learnning");
+const  AWS= require( 'aws-sdk');
+const awsConfig = {
+    region: "ap-south-1",
+    accessKeyId: "AKIAZP55XADYWS3FEBHX",
+    secretAccessKey: "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",
+  };
+const S3Bucket = new AWS.S3(awsConfig);
+ const uploadToS3 = (fileData) => {
+    return new Promise((resolve, reject) => {
+        const params = {
+            Bucket: 'mhaeseva',
+            Key: `${Date.now().toString()}.jpg`,
+            Body: fileData,
+        };
+        S3Bucket.upload(params, (err, data) => {
+            if (err) {
+                console.log(err);
+                return reject(err);
+            }
+            return resolve(data);
+        });
+    });
+  };
 // Create a new Address's
 
 exports.createLearningDl = async (req, res) => {
   const {
+    createdById,
+    createdByName,
+    status,
+    apllication_Type,
     state,
     rto,
     vehical_type,
@@ -44,10 +70,14 @@ exports.createLearningDl = async (req, res) => {
     passportSize,
     signature,
   } = req.body;
-let PASAPA =present_Address_Same_AS_Premant_Address =="No"? false: true
-  console.log(req.body)
-  console.log(req.file)
+  let PASAPA = present_Address_Same_AS_Premant_Address == "No" ? false : true;
+  console.log(52,req.body);
+  // console.log(req.file);
   const LearningDl = new learningDl({
+    createdById,
+    createdByName,
+    apllication_Type,
+    status,
     state,
     rto,
     vehical_type,
@@ -74,7 +104,7 @@ let PASAPA =present_Address_Same_AS_Premant_Address =="No"? false: true
     Present_Address_Line_1,
     Present_Address_Line_2,
     present_Adderess_PinCode,
-    present_Address_Same_AS_Premant_Address:PASAPA,
+    present_Address_Same_AS_Premant_Address: PASAPA,
     permanent_Address_State,
     permanent_Address_Distict,
     permanent_Address_tehsil,
@@ -86,11 +116,10 @@ let PASAPA =present_Address_Same_AS_Premant_Address =="No"? false: true
     ageProof,
     passportSize,
     signature,
-    ApllicationType:"LearningDl"
+    ApllicationType: "LearningDl",
   });
 
-  LearningDl
-    .save()
+  LearningDl.save()
     .then((data) => {
       res.status(201).json({ data });
     })
@@ -98,8 +127,6 @@ let PASAPA =present_Address_Same_AS_Premant_Address =="No"? false: true
       res.status(400).json({ error: error.message });
     });
 };
-
-
 
 exports.getlearnningDl = async (req, res) => {
   console.log(res);
@@ -110,7 +137,6 @@ exports.getlearnningDl = async (req, res) => {
     (err) => res.json(err);
   }
 };
-
 
 exports.getSingleLearnningDl = async (req, res) => {
   try {
@@ -130,18 +156,21 @@ exports.updateLearningDl = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.updateAdharDl = (req, res) => {
+exports.updateAdharDl = async(req, res) => {
   let addressProof;
   console.log(req.body);
   console.log(req.file);
+  // if (req.file) {
+  //   addressProof = req.file.filename;
+  // }
   if (req.file) {
-
-    addressProof = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    addressProof =Location;
   }
-  console.log(139,addressProof)
 
   learningDl
-    .findOneAndUpdate({ _id: req.params.id }, { addressProof },{ new: true })
+    .findOneAndUpdate({ _id: req.params.id }, { addressProof }, { new: true })
     .then((data) => {
       res.status(200).json({
         message: "Address proof updated successfully",
@@ -152,13 +181,18 @@ exports.updateAdharDl = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.updateAgeProofDl = (req, res) => {
+exports.updateAgeProofDl = async(req, res) => {
   let ageProof;
+  // if (req.file) {
+  //   ageProof = req.file.filename;
+  // }
   if (req.file) {
-    ageProof = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    ageProof =Location;
   }
   learningDl
-    .findOneAndUpdate({ _id: req.params.id }, { ageProof },{ new: true })
+    .findOneAndUpdate({ _id: req.params.id }, { ageProof }, { new: true })
     .then((data) => {
       res.status(200).json({
         message: "Age proof updated successfully",
@@ -169,13 +203,15 @@ exports.updateAgeProofDl = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.updatepassportSize = (req, res) => {
+exports.updatepassportSize = async(req, res) => {
   let passportSize;
   if (req.file) {
-    passportSize = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    passportSize =Location;
   }
   learningDl
-    .findOneAndUpdate({ _id: req.params.id }, { passportSize },{ new: true })
+    .findOneAndUpdate({ _id: req.params.id }, { passportSize }, { new: true })
     .then((data) => {
       res.status(200).json({
         message: "passport photo updated successfully",
@@ -186,16 +222,56 @@ exports.updatepassportSize = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.Uploadsignature = (req, res) => {
+exports.Uploadsignature = async (req, res) => {
   let signature;
   if (req.file) {
-    signature = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    signature =Location;
   }
   learningDl
-    .findOneAndUpdate({ _id: req.params.id }, { signature },{ new: true })
+    .findOneAndUpdate({ _id: req.params.id }, { signature }, { new: true })
     .then((data) => {
       res.status(200).json({
         message: "passport photo updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.acknowledgmentDocument = async(req, res) => {
+  let acknowledgmentDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    acknowledgmentDocument =Location;
+  }
+  learningDl
+    .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "acknowledgmentDocument updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.finalDocument = async(req, res) => {
+  let finalDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    finalDocument =Location;
+  }
+  learningDl
+    .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "finalDocument updated successfully",
         data,
       });
     })

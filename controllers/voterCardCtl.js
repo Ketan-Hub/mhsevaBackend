@@ -1,4 +1,5 @@
 const voterCard = require("../model/voterCardMdl");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createvoterCard = async (req, res) => {
   const {
@@ -116,10 +117,12 @@ exports.updatevoterCard = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.addressProof_Doc = (req, res) => {
+exports.addressProof_Doc = async(req, res) => {
   let addressProof_Doc;
   if (req.file) {
-    addressProof_Doc = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    addressProof_Doc =Location;
   }
   voterCard
     .findOneAndUpdate({ _id: req.params.id }, { addressProof_Doc })
@@ -133,10 +136,12 @@ exports.addressProof_Doc = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.ageProof_DOc = (req, res) => {
+exports.ageProof_DOc = async(req, res) => {
   let ageProof_DOc;
   if (req.file) {
-    ageProof_DOc = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    ageProof_DOc =Location;
   }
   voterCard
     .findOneAndUpdate({ _id: req.params.id }, { ageProof_DOc })
@@ -150,10 +155,12 @@ exports.ageProof_DOc = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.PassportSize_photo = (req, res) => {
+exports.PassportSize_photo = async(req, res) => {
   let PassportSize_photo;
   if (req.file) {
-    PassportSize_photo = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    PassportSize_photo =Location;
   }
   voterCard
     .findOneAndUpdate({ _id: req.params.id }, { PassportSize_photo })
@@ -167,16 +174,56 @@ exports.PassportSize_photo = (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-exports.age_declaration_form = (req, res) => {
+exports.age_declaration_form = async(req, res) => {
   let age_declaration_form;
   if (req.file) {
-    age_declaration_form = req.file.filename;
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    age_declaration_form =Location;
   }
   voterCard
     .findOneAndUpdate({ _id: req.params.id }, { age_declaration_form })
     .then((data) => {
       res.status(200).json({
         message: "age_declaration_form updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.acknowledgmentDocument = async(req, res) => {
+  let acknowledgmentDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    acknowledgmentDocument =Location;
+  }
+  voterCard
+    .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "acknowledgmentDocument updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.finalDocument = async(req, res) => {
+  let finalDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    finalDocument =Location;
+  }
+  voterCard
+    .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "finalDocument updated successfully",
         data,
       });
     })

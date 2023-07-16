@@ -1,12 +1,14 @@
 const recharge = require("../model/recharge");
 
 exports.createrecharge = async (req, res) => {
-  const { user, mode, rechargeAmt, totalRechargeAMt } = req.body;
+  const { user, mode, amount, isExpence, expenceFor } = req.body;
+  console.log(user)
   const Recharge = new recharge({
     user,
     mode,
-    rechargeAmt,
-    totalRechargeAMt,
+    amount,
+    isExpence,
+    expenceFor
   });
 
   Recharge.save()
@@ -30,6 +32,16 @@ exports.getrecharge = async (req, res) => {
 exports.getSingRecharge = async (req, res) => {
   try {
     const singData = await recharge.find({ _id: req.params.id });
+    res.json(singData);
+  } catch (err) {
+    res.json({ err });
+  }
+};
+exports.getSingRechargeByUser = async (req, res) => {
+  try {
+    console.log(req.params.userId)
+    const singData = await recharge.find({ user: req.params.userId });
+    console.log(44,singData)
     res.json(singData);
   } catch (err) {
     res.json({ err });

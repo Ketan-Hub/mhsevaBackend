@@ -1,7 +1,9 @@
 const e_gazzet = require("../model/e_gazzet");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createE_gazzet = async (req, res) => {
   const {
+    retailerName,
     service_type,
     type_cast,
     title,
@@ -95,10 +97,12 @@ exports.createE_gazzet = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.photoID = (req, res) => {
+  exports.photoID = async(req, res) => {
     let photoID;
     if (req.file) {
-      photoID = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      photoID =Location;
     }
     e_gazzet
       .findOneAndUpdate({ _id: req.params.id }, { photoID })
@@ -112,10 +116,12 @@ exports.createE_gazzet = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.addressProof = (req, res) => {
+  exports.addressProof = async(req, res) => {
     let addressProof;
     if (req.file) {
-      addressProof = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      addressProof =Location;
     }
     e_gazzet
       .findOneAndUpdate({ _id: req.params.id }, { addressProof })
@@ -129,10 +135,12 @@ exports.createE_gazzet = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.applicationForm = (req, res) => {
+  exports.applicationForm = async(req, res) => {
     let applicationForm;
     if (req.file) {
-      applicationForm = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      applicationForm =Location;
     }
     e_gazzet
       .findOneAndUpdate({ _id: req.params.id }, { applicationForm })
@@ -146,10 +154,12 @@ exports.createE_gazzet = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.identityProof = (req, res) => {
+  exports.identityProof = async(req, res) => {
     let identityProof;
     if (req.file) {
-      identityProof = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      identityProof =Location;
     }
     e_gazzet
       .findOneAndUpdate({ _id: req.params.id }, { identityProof })
@@ -163,10 +173,12 @@ exports.createE_gazzet = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.Passport_Size_Photo = (req, res) => {
+  exports.Passport_Size_Photo =async (req, res) => {
     let Passport_Size_Photo;
     if (req.file) {
-      Passport_Size_Photo = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      Passport_Size_Photo =Location;
     }
     e_gazzet
       .findOneAndUpdate({ _id: req.params.id }, { Passport_Size_Photo })
@@ -180,10 +192,12 @@ exports.createE_gazzet = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.OldName_Proof = (req, res) => {
+  exports.OldName_Proof = async(req, res) => {
     let OldName_Proof;
     if (req.file) {
-      OldName_Proof = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      OldName_Proof =Location;
     }
     e_gazzet
       .findOneAndUpdate({ _id: req.params.id }, { OldName_Proof })
@@ -197,10 +211,12 @@ exports.createE_gazzet = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.PresentName_Proof = (req, res) => {
+  exports.PresentName_Proof = async(req, res) => {
     let PresentName_Proof;
     if (req.file) {
-      PresentName_Proof = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      PresentName_Proof =Location;
     }
     e_gazzet
       .findOneAndUpdate({ _id: req.params.id }, { PresentName_Proof })
@@ -214,16 +230,56 @@ exports.createE_gazzet = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.Cast_Certificate = (req, res) => {
+  exports.Cast_Certificate =async (req, res) => {
     let Cast_Certificate;
     if (req.file) {
-      Cast_Certificate = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      Cast_Certificate =Location;
     }
     e_gazzet
       .findOneAndUpdate({ _id: req.params.id }, { Cast_Certificate })
       .then((data) => {
         res.status(200).json({
           message: "identity Proof updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.acknowledgmentDocument = async(req, res) => {
+    let acknowledgmentDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      acknowledgmentDocument =Location;
+    }
+    e_gazzet
+      .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "acknowledgmentDocument updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.finalDocument = async(req, res) => {
+    let finalDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      finalDocument =Location;
+    }
+    e_gazzet
+      .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "finalDocument updated successfully",
           data,
         });
       })

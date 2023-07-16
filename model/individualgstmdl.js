@@ -2,13 +2,22 @@ const mongoose=require('mongoose')
 
 const individualGST_Schema=mongoose.Schema(
     {
-        customerName:{type:String,required:true},
-        address:{type:String,required:true},
-        mobileNO:{type:Number,required:true},
-        email:{type:String,required:true},
-        panCard:{type:String,required:true},
-        adharCard:{type:Number,required:true},
+        application_type:{type:String},
+        status:{type:String},
+        createdBy:{type:String},
+        createdByName:{type:String},
+        
+        customerName:{type:String,},
+        address:{type:String,},
+        mobileNO:{type:Number,},
+        email:{type:String,},
+        panCard:{type:String,},
+        adharCard:{type:Number,},
+        formPrice :{type: Number},
+        note:{type:String},
         //uploads
+        acknowledgmentDocument:{type:String},
+        finalDocument:{type:String},
         adharCard_Docs:{type:String},
         electricityBill:{type:String},
         bankPassbook:{type:String},
@@ -17,6 +26,8 @@ const individualGST_Schema=mongoose.Schema(
         shopAct_licence:{type:String},
         rentAgreement:{type:String},
         signature:{type:String},
+        retailerName:{type:String},
+
     },
     {timestamps:true}
 )

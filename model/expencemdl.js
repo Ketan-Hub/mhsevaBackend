@@ -4,7 +4,7 @@ const expenceSchema =mongoose.Schema(
         user:{type:String},
         formName:{type:String},
         debitamount:{type:Number},
-        totalExpance:{type:Number}
+        totalExpance:{type:Number},
         
     },
     {timestamps:true}

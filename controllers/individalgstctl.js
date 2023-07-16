@@ -1,4 +1,5 @@
 const indGST = require("../model/individualgstmdl");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createindGST = async (req, res) => {
   const {
@@ -71,10 +72,12 @@ exports.createindGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.adharCard_Docs = (req, res) => {
+  exports.adharCard_Docs =async (req, res) => {
     let adharCard_Docs;
     if (req.file) {
-      adharCard_Docs = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      adharCard_Docs =Location;
     }
     indGST
       .findOneAndUpdate({ _id: req.params.id }, { adharCard_Docs })
@@ -88,10 +91,12 @@ exports.createindGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.electricityBill = (req, res) => {
+  exports.electricityBill = async(req, res) => {
     let electricityBill;
     if (req.file) {
-      electricityBill = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      electricityBill =Location;
     }
     indGST
       .findOneAndUpdate({ _id: req.params.id }, { electricityBill })
@@ -105,10 +110,12 @@ exports.createindGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.bankPassbook = (req, res) => {
+  exports.bankPassbook =async (req, res) => {
     let bankPassbook;
     if (req.file) {
-      bankPassbook = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      bankPassbook =Location;
     }
     indGST
       .findOneAndUpdate({ _id: req.params.id }, { bankPassbook })
@@ -122,10 +129,12 @@ exports.createindGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.panCard_Docs = (req, res) => {
+  exports.panCard_Docs = async(req, res) => {
     let panCard_Docs;
     if (req.file) {
-      panCard_Docs = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      panCard_Docs =Location;
     }
     indGST
       .findOneAndUpdate({ _id: req.params.id }, { panCard_Docs })
@@ -139,10 +148,12 @@ exports.createindGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.passportPhoto = (req, res) => {
+  exports.passportPhoto =async (req, res) => {
     let passportPhoto;
     if (req.file) {
-      passportPhoto = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      passportPhoto =Location;
     }
     indGST
       .findOneAndUpdate({ _id: req.params.id }, { passportPhoto })
@@ -156,10 +167,12 @@ exports.createindGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.shopAct_licence = (req, res) => {
+  exports.shopAct_licence =async (req, res) => {
     let shopAct_licence;
     if (req.file) {
-      shopAct_licence = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      shopAct_licence =Location;
     }
     indGST
       .findOneAndUpdate({ _id: req.params.id }, { shopAct_licence })
@@ -173,10 +186,12 @@ exports.createindGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.rentAgreement = (req, res) => {
+  exports.rentAgreement = async(req, res) => {
     let rentAgreement;
     if (req.file) {
-      rentAgreement = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      rentAgreement =Location;
     }
     indGST
       .findOneAndUpdate({ _id: req.params.id }, { rentAgreement })
@@ -190,10 +205,12 @@ exports.createindGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.signature = (req, res) => {
+  exports.signature = async(req, res) => {
     let signature;
     if (req.file) {
-      signature = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      signature =Location;
     }
     indGST
       .findOneAndUpdate({ _id: req.params.id }, { signature })
@@ -208,7 +225,44 @@ exports.createindGST = async (req, res) => {
       });
   };
 
-
+  exports.acknowledgmentDocument = async(req, res) => {
+    let acknowledgmentDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      acknowledgmentDocument =Location;
+    }
+    indGST
+      .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "acknowledgmentDocument updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.finalDocument = async(req, res) => {
+    let finalDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      finalDocument =Location;
+    }
+    indGST
+      .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "finalDocument updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
   exports.deleteindGST = (req, res) => {
     indGST.findOneAndDelete({ _id: req.params.id })
       .then(data => {

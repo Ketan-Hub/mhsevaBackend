@@ -2,17 +2,25 @@ const express = require('express');
 const router = express.Router();
 const multer=require("multer");
 const path =require("path");
+const AWS =require( 'aws-sdk');
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, path.join(path.dirname(__dirname), 'uploads'));
+let upload = multer({
+    limits: {
+        fileSize: 1024 * 1024 * 5,
     },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
+    fileFilter: function (req, file, done) {
+        const allowedFileTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+    if (allowedFileTypes.includes(file.mimetype)) {
+        // if (file.mimetype.startsWith("application/pdf") || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
+            done(null, true);
+        } else {
+            //prevent the upload
+            let newError = new Error("File type is incorrect");
+            newError.name = "MulterError";
+            done(newError, false);
+        }
     },
 });
-
-const upload = multer({storage});
 
 // Create renew routes
 router.post('/indGST/create', require('../controllers/individalgstctl').createindGST);
@@ -26,13 +34,16 @@ router.delete('/indGST/:id', require('../controllers/individalgstctl').deleteind
 
 // Update renew routes
 router.put('/indGST/:id' , require('../controllers/individalgstctl').updateindGST);
-router.put('/indGST_adharCardDocs/:id' , require('../controllers/individalgstctl').adharCard_Docs);
-router.put('/indGST_electricityBill/:id' , require('../controllers/individalgstctl').electricityBill);
-router.put('/indGST_bankPassbook/:id' , require('../controllers/individalgstctl').bankPassbook);
-router.put('/indGST_panCardDocs/:id' , require('../controllers/individalgstctl').panCard_Docs);
-router.put('/indGST_passportPhoto/:id' , require('../controllers/individalgstctl').passportPhoto);
-router.put('/indGST_shopActLicence/:id' , require('../controllers/individalgstctl').shopAct_licence);
-router.put('/indGST_rentAgreement/:id' , require('../controllers/individalgstctl').rentAgreement);
-router.put('/indGST_signature/:id' , require('../controllers/individalgstctl').signature);
+//
+router.put('/indGST_adharCardDocs/:id' ,upload.single("adharCard_Docs"), require('../controllers/individalgstctl').adharCard_Docs);
+router.put('/indGST_electricityBill/:id' ,upload.single("electricityBill"), require('../controllers/individalgstctl').electricityBill);
+router.put('/indGST_bankPassbook/:id' ,upload.single("bankPassbook"), require('../controllers/individalgstctl').bankPassbook);
+router.put('/indGST_panCardDocs/:id' ,upload.single("panCard_Docs"), require('../controllers/individalgstctl').panCard_Docs);
+router.put('/indGST_passportPhoto/:id' ,upload.single("passportPhoto"), require('../controllers/individalgstctl').passportPhoto);
+router.put('/indGST_shopActLicence/:id' ,upload.single("shopAct_licence"), require('../controllers/individalgstctl').shopAct_licence);
+router.put('/indGST_rentAgreement/:id' ,upload.single("rentAgreement"), require('../controllers/individalgstctl').rentAgreement);
+router.put('/indGST_signature/:id' ,upload.single("signature"), require('../controllers/individalgstctl').signature);
+router.put('/indGST_acknowledgmentDocument/:id' ,upload.single("acknowledgmentDocument"), require('../controllers/individalgstctl').acknowledgmentDocument);
+router.put('/indGST_finalDocument/:id' ,upload.single("finalDocument"), require('../controllers/individalgstctl').finalDocument);
 
 module.exports=router;

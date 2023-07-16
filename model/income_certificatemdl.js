@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 const incomeCerSchema = mongoose.Schema(
   {
-    statusfname: { type: String},
+    application_type:{type:String},
+    status:{type:String},
+    createdBy:{type:String},
+    createdByName:{type:String},
+    Data:[{
+    // statusfname: { type: String},
     fullName_English: { type: String },
     fullName_Marathi: { type: String },
     fatherName_english: { type: String },
@@ -16,7 +21,7 @@ const incomeCerSchema = mongoose.Schema(
     PanNo: { type: String },
     AdharNo: { type: String },
     address: { type: String },
-    strateName: { type: String },
+    streetName: { type: String },
     depart: { type: String },
     Building: { type: String },
     landmark: { type: String },
@@ -24,37 +29,30 @@ const incomeCerSchema = mongoose.Schema(
     taluka: { type: String },
     village: { type: String },
     pincode: { type: Number },
-    family: [
-      {
-        relation: { type: String },
-        Name: { type: String },
-        AgeOfRelative: { type: String },
-        WorkTypeOfRelative: { type: String },
-        incomeOfRelative: { type: String },
-      },
-    ],
     relationOfApplicant: { type: String },
     statusOfApplicant: { type: String },
     NameOfApplicant: { type: String },
     ReasonOfApllication: { type: String },
-    distibutionOfIncomefromAgri: [
-      {
-        accountHolder_Name: { type: String },
-        totalfarm: { type: String },
-        accountHolder_DIstrict: { type: String },
-        accountHolder_Taluka: { type: String },
-        accountHolder_village: { type: String },
-      },
-    ],
-    familyIncomeType: { type: String },
-    incomeYear: [
-      {
-        year: { type: String },
-        Income: { type: Number },
-      },
-    ],
-    IncomeTypeDiscription: { type: String },
+    ReasonOfincome_get:{type:String},
     IncomeDOcsName: { type: String },
+    formPrice :{type: Number}
+
+    }],
+    family: {type:Array},
+    distibutionOfIncomefromAgri: {type:Array},
+    incomeSource:{type:Array},
+    retailerName:{type:String},
+    note:{type:String},
+    //uploads
+    acknowledgmentDocument:{type:String},
+    finalDocument:{type:String},
+    reshaCard:{type:String},
+    adharCard:{type:String},
+    lightBill:{type:String},
+    photo:{type:String},
+    form16:{type:String},
+    consentform:{type:String},
+    selfDeclearation:{type:String}
   },
   { timestamps: true }
 );

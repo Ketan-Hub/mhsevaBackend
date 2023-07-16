@@ -2,18 +2,26 @@ const mongoose=require('mongoose')
 
 const companyGST_Schema=mongoose.Schema(
     {
-        companyName:{type:String,required:true},
-        ownerName:{type:String,required:true},
-        mobileNO:{type:Number,required:true},
-        email:{type:String,required:true},
-        businessStarted:{type:String,required:true},
-        companyAddress:{type:String,required:true},
-        companyPan:{type:String,required:true},
-        RegCertificate:{type:Boolean,required:true},
-        MOA_AOA:{type:Boolean,required:true},
-        authorityLetter:{type:Boolean,required:true},
-        natureBusiness:{type:String,required:true},
-        //uplods
+        application_type:{type:String},
+        status:{type:String},
+        createdBy:{type:String},
+        createdByName:{type:String},
+        retailerName:{type:String},
+        companyName:{type:String},
+        ownerName:{type:String},
+        mobileNO:{type:Number},
+        email:{type:String},
+        businessStarted:{type:String},
+        companyAddress:{type:String},
+        companyPan:{type:String},
+        RegCertificate:{type:String},
+        MOA_AOA:{type:String},
+        authorityLetter:{type:String},
+        natureBusiness:{type:String},
+        note:{type:String},
+        //uploads
+        acknowledgmentDocument:{type:String},
+        finalDocument:{type:String},
         adharCard:{type:String},
         electricityBill:{type:String},
         bankPassbook:{type:String},
@@ -22,6 +30,7 @@ const companyGST_Schema=mongoose.Schema(
         shopAct_licence:{type:String},
         rentAgreement:{type:String},
         signature:{type:String},
+
     },
     {timestamps:true}
 )

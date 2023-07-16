@@ -5,21 +5,22 @@ const jwt = require("jsonwebtoken");
 
 const userSchema = mongoose.Schema(
   {
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    email: { type: String, required: true },
-    mobileNumber: { type: Number, required: true },
-    district: { type: String, required: true },
-    role: { type: String, required: true, enum: ["Retailer", "Agent","Admin"] },
-    area: { type: String,required: true},
-    address1: { type: String, required: true,},
-    address2: {  type: String,  required: true,},
-    agent: {type: String},
-    agentMargin: { type: Number},
-    apleSarkar: { type: Boolean, required: true, },
+    
+    name:{type:String , },
+    email: { type: String , },
+    mobileNumber: { type: Number, },
+    district: { type: String , },
+    tehsil: { type: String , },
+    village: { type: String , },
+    role: { type: String, enum: ["retailer", "agent","admin"] , },
+    area: { type: String, },
+    address1: { type: String, },
+    address2: {  type: String, },
+    agent: {type: String, },
+    agentMargin: { type: Number, },
+    tehsilServices: { type: String,  },
     hash_password: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }
@@ -43,4 +44,3 @@ userSchema.methods = {
   }
 }
 module.exports = mongoose.model("user", userSchema);
-

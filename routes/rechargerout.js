@@ -7,6 +7,8 @@ router.post('/recharge/create', require('../controllers/rechargectl').createrech
 // Get renew routes
 router.get('/recharge', require('../controllers/rechargectl').getrecharge);
 router.get('/recharge/:id', require('../controllers/rechargectl').getSingRecharge);
+router.get('/recharge/getByUser/:userId', require('../controllers/rechargectl').getSingRechargeByUser);
+
 
 // Delete renew routes
 router.delete('/recharge/:id', require('../controllers/rechargectl').deletrecharge);

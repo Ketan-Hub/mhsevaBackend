@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const Voter_Card_Fees = mongoose.Schema(
   {
+    application_type:{type:String},
+    status:{type:String},
+    createdBy:{type:String},
+    createdByName:{type:String},
     assembly_Parliamentary_Constituency: { type: String, required: true },
     request_name_electoral_roll_Constituency: { type: String, required: true },
     name: { type: String, required: true },
@@ -18,6 +22,8 @@ const Voter_Card_Fees = mongoose.Schema(
     currentAddress_district: { type: String, required: true },
     currentAddress_stateUnion_Territory: { type: String, required: true },
     currentAddress_pincodeZip_code: { type: Number, required: true },
+    formPrice :{type: Number},
+    retailerName:{type:String},
     currentAddress_ordinarily_resident_address_since: {
       type: String,
       required: true,
@@ -40,6 +46,10 @@ const Voter_Card_Fees = mongoose.Schema(
     disability: { type: String, required: true },
     previous_Constituency: { type: String, required: true },
     previousConstituency_state: { type: String, required: true },
+    note:{type:String},
+    //uploads
+    acknowledgmentDocument:{type:String},
+    finalDocument:{type:String},
     addressProof: { type: String, required: true },
     addressProof_Doc: { type: String },
     ageProof: { type: String, required: true },

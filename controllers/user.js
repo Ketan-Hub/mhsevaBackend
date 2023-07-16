@@ -17,22 +17,24 @@ exports.signup = (req, res) => {
         error: "User already registered",
       });
 
-    const { firstName, lastName, email, secretCode } = req.body;
+    const { name, email, secretCode } = req.body;
     // const hash_password = await bcrypt.hash(password, 10);
     const _user = new User({
-        firstName,
-        lastName,
+        name,
         email,
-        mobileNumner,
+        mobileNumber,
         district,
+        tehsil,
+        village,
         role,
         area,
         address1,
         address2,
         agent,
         agentMargin,
-        apleSarkar,
-        secretCode
+        tehsilServices,
+        password,
+       
 
     });
 
@@ -52,28 +54,6 @@ exports.signup = (req, res) => {
   });
 };
 
-// exports.signin = (req, res) => {
-//   User.findOne({ email: req.body.email }).exec(async (error, user) => {
-//     if (error) return res.status(400).json({ error });
-//     if (user) {
-//       const isPassword = await user.authenticate(req.body.password);
-//       if (isPassword) {
-//         const token = jwt.sign({_id: user._id, role: user.role}, process.env.JWT_SECRET, { expiresIn:"2h"});
-//         const { _id, firstName, lastName, email, role, fullName } = user;
-//         res.status(200).json({
-//           token,
-//           user: { _id, firstName, lastName, email, role, fullName },
-//         });
-//       } else {
-//         return res.status(400).json({
-//           message: "Something went wrong",
-//         });
-//       }
-//     } else {
-//       return res.status(400).json({ message: "Something went wrong" });
-//     }
-//   });
-// };
 
 exports.signin = async (req, res) => {
   try {
@@ -143,3 +123,21 @@ exports.signin = async (req, res) => {
 //     });
 //   }
 // };
+exports.getone = async (req, res) => {
+  try {
+    const user = await User.find({ _id: req.params.id });
+    res.json(user);
+  } catch (err) {
+    res.json({ err });
+  }
+};
+
+exports.getusers= async (req, res) => {
+  console.log(res);
+  try {
+    const getusers = await User.find();
+    res.json(getusers);
+  } catch {
+    (err) => res.json(err);
+  }
+};

@@ -1,4 +1,5 @@
 const permanantDl = require("../model/permanantDl");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createPermanntDl = async (req, res) => {
   const {
@@ -76,8 +77,8 @@ exports.createPermanntDl = async (req, res) => {
     permanent_Address_Line_1,
     permanent_Address_Line_2,
     permanent_Adderess_PinCode,
-    addressProof,
-    ageProof,
+    // addressProof,
+    // ageProof,
   });
 
 //   permanant.save((error, permanant) => {
@@ -122,10 +123,15 @@ PermanantDl.save()
         res.status(400).json({ error: error.message });
       });
   };
-  exports.updateAdharDl = (req, res) => {
+  exports.updateAdharDl =async (req, res) => {
     let addressProof;
+    // if (req.file) {
+    //   addressProof = req.file.filename;
+    // }
     if (req.file) {
-      addressProof = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      addressProof =Location;
     }
     permanantDl
       .findOneAndUpdate({ _id: req.params.id }, { addressProof })
@@ -139,16 +145,56 @@ PermanantDl.save()
         res.status(400).json({ error: error.message });
       });
   };
-  exports.updateAgeProofDl = (req, res) => {
+  exports.updateAgeProofDl = async(req, res) => {
     let ageProof;
     if (req.file) {
-      ageProof = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      ageProof =Location;
     }
     permanantDl
       .findOneAndUpdate({ _id: req.params.id }, { ageProof })
       .then((data) => {
         res.status(200).json({
           message: "Age proof updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.acknowledgmentDocument = async(req, res) => {
+    let acknowledgmentDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      acknowledgmentDocument =Location;
+    }
+    permanantDl
+      .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "acknowledgmentDocument updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.finalDocument = async(req, res) => {
+    let finalDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      finalDocument =Location;
+    }
+    permanantDl
+      .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "finalDocument updated successfully",
           data,
         });
       })

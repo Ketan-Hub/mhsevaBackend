@@ -1,7 +1,14 @@
 const ageNashnality = require("../model/Age_NashnalityMdl");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createageNashnality = async (req, res) => {
   const { 
+    retailerName,
+    application_type,
+    status,
+    createdBy,
+    createdByName,
+    Data:{
     docName,
     statusfname,
     fullName_English,
@@ -17,8 +24,8 @@ exports.createageNashnality = async (req, res) => {
     AdharNo,
     Building,
     address,
-    strateName,
-    depart,
+    street,
+    // depart,
     landmark,
     district,
     taluka,
@@ -29,40 +36,22 @@ exports.createageNashnality = async (req, res) => {
     Applicunt_Live_In_MH_Inyear,
     applicant_Name,
     benificiary_NameStatus,
+    relationApplicant_beneficiary,
     benificiary_Name,
     benificiary_DOB,
     Benificiary_Phoneno,
-    BirthDetails,
+    // BirthDetails,
     BirthDetails_address,
     BirthDetails_strateName,
     BirthDetails_Building,
     BirthDetails_depart,
     BirthDetails_Country,
     BirthDetails_district,
-    BirthDetails_taluka,
+    BirthDetails_tehsil,
     BirthDetails_village,
     BirthDetails_pincode,
-    BenificiaryEdgucationDetails: [
-      {
-        begree,
-        organizationName,
-        AddmisionYear,
-        leaveYear,
-        EducationPlace,
-      },
-    ],
     migration_MH_From_Another_State,
-    migration: [
-      {
-        migrationToMHYear,
-        BeforeMigrationLocation,
-        reasonOfMigration,
-        placeOfMigration,
-        MigrationStartYear,
-        MigrationEndYear,
-      },
-    ],
-    isMovablePropartyOfApp_FAther_Hus,
+    // isMovablePropartyOfApp_FAther_Hus,
     Proparty_address,
     Proparty_street,
     Proparty_Building,
@@ -85,13 +74,27 @@ exports.createageNashnality = async (req, res) => {
     ApllicantBenificiaryOtherState_Taluka,
     ApllicantBenificiaryOtherState_Village,
     ApllicantBenificiaryOtherState_pincode,
-    CertificateReason,
-    
-
-
+    CertificateReason
+    },
+    EducationDetailsArray,
+    MigrationBeneficiaryArray,
+    FMemberBeneficiaryArray,
+    reshanCard ,
+   adharCard ,
+   lightBill ,
+   schoolLeaveCertificate ,
+   taxBillOr15yerOldLightbill ,
+   photo ,
+   selfDeclaration,
 
 } = req.body;
   const AgeNashnality = new ageNashnality({
+    retailerName,
+    application_type,
+    status,
+    createdBy,
+    createdByName,
+    Data:{
     docName,
     statusfname,
     fullName_English,
@@ -107,8 +110,8 @@ exports.createageNashnality = async (req, res) => {
     AdharNo,
     Building,
     address,
-    strateName,
-    depart,
+    street,
+    // depart,
     landmark,
     district,
     taluka,
@@ -119,40 +122,22 @@ exports.createageNashnality = async (req, res) => {
     Applicunt_Live_In_MH_Inyear,
     applicant_Name,
     benificiary_NameStatus,
+    relationApplicant_beneficiary,
     benificiary_Name,
     benificiary_DOB,
     Benificiary_Phoneno,
-    BirthDetails,
+    // BirthDetails,
     BirthDetails_address,
     BirthDetails_strateName,
     BirthDetails_Building,
     BirthDetails_depart,
     BirthDetails_Country,
     BirthDetails_district,
-    BirthDetails_taluka,
+    BirthDetails_tehsil,
     BirthDetails_village,
     BirthDetails_pincode,
-    BenificiaryEdgucationDetails: [
-      {
-        begree,
-        organizationName,
-        AddmisionYear,
-        leaveYear,
-        EducationPlace,
-      },
-    ],
     migration_MH_From_Another_State,
-    migration: [
-      {
-        migrationToMHYear,
-        BeforeMigrationLocation,
-        reasonOfMigration,
-        placeOfMigration,
-        MigrationStartYear,
-        MigrationEndYear,
-      },
-    ],
-    isMovablePropartyOfApp_FAther_Hus,
+    // isMovablePropartyOfApp_FAther_Hus,
     Proparty_address,
     Proparty_street,
     Proparty_Building,
@@ -176,6 +161,17 @@ exports.createageNashnality = async (req, res) => {
     ApllicantBenificiaryOtherState_Village,
     ApllicantBenificiaryOtherState_pincode,
     CertificateReason,
+    },
+    EducationDetailsArray,
+    MigrationBeneficiaryArray,
+    FMemberBeneficiaryArray,
+    reshanCard ,
+    adharCard ,
+    lightBill ,
+    schoolLeaveCertificate,
+    taxBillOr15yerOldLightbill ,
+    photo ,
+    selfDeclaration,
 })
 
 AgeNashnality.save()
@@ -215,6 +211,179 @@ exports.updateageNashnality= (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
+exports.reshanCard = async(req, res) => {
+  let reshanCard;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    reshanCard =Location;
+  }
+  ageNashnality
+    .findOneAndUpdate({ _id: req.params.id }, { reshanCard })
+    .then((data) => {
+      res.status(200).json({
+        message: "reshanCard updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.adharCard = async(req, res) => {
+  let adharCard;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    adharCard =Location;
+  }
+  ageNashnality
+    .findOneAndUpdate({ _id: req.params.id }, { adharCard })
+    .then((data) => {
+      res.status(200).json({
+        message: "adharCard updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.lightBill =async (req, res) => {
+  let lightBill;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    lightBill =Location;
+  }
+
+  ageNashnality
+    .findOneAndUpdate({ _id: req.params.id }, { lightBill })
+    .then((data) => {
+      res.status(200).json({
+        message: "lightBill updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.schoolLeaveCertificate = async(req, res) => {
+  let schoolLeaveCertificate;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    schoolLeaveCertificate =Location;
+  }
+  ageNashnality
+    .findOneAndUpdate({ _id: req.params.id }, { schoolLeaveCertificate })
+    .then((data) => {
+      res.status(200).json({
+        message: "school Leave Certificate updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.taxBillOr15yerOldLightbill = async(req, res) => {
+  let taxBillOr15yerOldLightbill;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    taxBillOr15yerOldLightbill =Location;
+  }
+  ageNashnality
+    .findOneAndUpdate({ _id: req.params.id }, { taxBillOr15yerOldLightbill })
+    .then((data) => {
+      res.status(200).json({
+        message: "tax Bill Or 15 year Old Lightbill updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.photo = async(req, res) => {
+  let photo;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    photo =Location;
+  }
+  ageNashnality
+    .findOneAndUpdate({ _id: req.params.id }, { photo })
+    .then((data) => {
+      res.status(200).json({
+        message: "photo updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.selfDeclaration = async(req, res) => {
+  let selfDeclaration;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    selfDeclaration =Location;
+  }
+  ageNashnality
+    .findOneAndUpdate({ _id: req.params.id }, { selfDeclaration })
+    .then((data) => {
+      res.status(200).json({
+        message: "selfDeclaration updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.acknowledgmentDocument = async(req, res) => {
+  let acknowledgmentDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    acknowledgmentDocument =Location;
+  }
+  ageNashnality
+    .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "acknowledgmentDocument updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.finalDocument = async(req, res) => {
+  let finalDocument;
+  if (req.file) {
+    let fileData = req.file.buffer;
+    let { Location } = await uploadToS3(fileData);
+    finalDocument =Location;
+  }
+  ageNashnality
+    .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+    .then((data) => {
+      res.status(200).json({
+        message: "finalDocument updated successfully",
+        data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+
 exports.deletageNashnality = (req, res) => {
     ageNashnality
     .findOneAndDelete({ _id: req.params.id })

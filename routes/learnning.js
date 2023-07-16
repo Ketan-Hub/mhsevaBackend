@@ -2,19 +2,26 @@ const express = require('express');
 const router = express.Router();
 const multer=require("multer");
 const path =require("path");
+const AWS =require( 'aws-sdk');
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, path.join(path.dirname(__dirname), 'uploads'));
+
+let upload = multer({
+    limits: {
+        fileSize: 1024 * 1024 * 5,
     },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
+    fileFilter: function (req, file, done) {
+        const allowedFileTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+    if (allowedFileTypes.includes(file.mimetype)) {
+        // if (file.mimetype.startsWith("application/pdf") || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
+            done(null, true);
+        } else {
+            //prevent the upload
+            let newError = new Error("File type is incorrect");
+            newError.name = "MulterError";
+            done(newError, false);
+        }
     },
 });
-
-const upload = multer({storage});
-
-
 // Create learning routes
 router.post('/learning/create' ,require('../controllers/learningDl').createLearningDl);
 
@@ -27,11 +34,12 @@ router.delete('/learning/:id', require('../controllers/learningDl').deletelearnn
 
 // Update learning routes
 router.put('/learning/:id' , require('../controllers/learningDl').updateLearningDl);
-// router.put('/adharUpload/:id' ,upload.single("addressProof"), require('../controllers/learningDl').updateAdharDl);
-router.put('/adharUpload/:id' ,upload.single("addressProof"), require('../controllers/learningDl').updateAdharDl);
 
+router.put('/addressProof/:id' ,upload.single("addressProof"), require('../controllers/learningDl').updateAdharDl);
 router.put('/Ageproof/:id' ,upload.single("ageProof"), require('../controllers/learningDl').updateAgeProofDl);
 router.put('/passportPic/:id' ,upload.single("passportSize"), require('../controllers/learningDl').updatepassportSize);
 router.put('/signature/:id' ,upload.single("signature"), require('../controllers/learningDl').Uploadsignature);
+router.put('/learning_acknowledgmentDocument/:id' ,upload.single("acknowledgmentDocument"), require('../controllers/learningDl').acknowledgmentDocument);
+router.put('/learning_finalDocument/:id' ,upload.single("finalDocument"), require('../controllers/learningDl').finalDocument);
 
 module.exports=router;

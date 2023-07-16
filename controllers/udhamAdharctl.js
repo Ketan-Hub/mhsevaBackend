@@ -1,4 +1,5 @@
 const udhamabhar = require("../model/UdhamAdharmdl");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createudhamAbhar = async (req, res) => {
   const {
@@ -88,10 +89,12 @@ exports.createudhamAbhar = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.Aadhar_Upload_Card = (req, res) => {
+  exports.Aadhar_Upload_Card = async(req, res) => {
     let Aadhar_Upload_Card;
     if (req.file) {
-      Aadhar_Upload_Card = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      Aadhar_Upload_Card =Location;
     }
     udhamabhar
       .findOneAndUpdate({ _id: req.params.id }, { Aadhar_Upload_Card })
@@ -105,10 +108,12 @@ exports.createudhamAbhar = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.Pan_Upload_Card = (req, res) => {
+  exports.Pan_Upload_Card =async (req, res) => {
     let Pan_Upload_Card;
     if (req.file) {
-      Pan_Upload_Card = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      Pan_Upload_Card =Location;
     }
     udhamabhar
       .findOneAndUpdate({ _id: req.params.id }, { Pan_Upload_Card })
@@ -122,11 +127,14 @@ exports.createudhamAbhar = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.Passport = (req, res) => {
+  exports.Passport =async (req, res) => {
     let Passport;
     if (req.file) {
-      Passport = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      Passport =Location;
     }
+    
     udhamabhar
       .findOneAndUpdate({ _id: req.params.id }, { Passport })
       .then((data) => {
@@ -139,16 +147,56 @@ exports.createudhamAbhar = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.Bank_Upload_Passbook = (req, res) => {
+  exports.Bank_Upload_Passbook = async(req, res) => {
     let Bank_Upload_Passbook;
     if (req.file) {
-      Bank_Upload_Passbook = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      Bank_Upload_Passbook =Location;
     }
     udhamabhar
       .findOneAndUpdate({ _id: req.params.id }, { Bank_Upload_Passbook })
       .then((data) => {
         res.status(200).json({
           message: "Bank_Upload_Passbook updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.acknowledgmentDocument = async(req, res) => {
+    let acknowledgmentDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      acknowledgmentDocument =Location;
+    }
+    udhamabhar
+      .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "acknowledgmentDocument updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.finalDocument = async(req, res) => {
+    let finalDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      finalDocument =Location;
+    }
+    udhamabhar
+      .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "finalDocument updated successfully",
           data,
         });
       })

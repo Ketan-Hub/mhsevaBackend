@@ -1,4 +1,5 @@
 const renewDl = require("../model/renewDl");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createRenewDl = async (req, res) => {
   const {
@@ -37,7 +38,7 @@ exports.createRenewDl = async (req, res) => {
     permanent_Address_Line_1,
     permanent_Address_Line_2,
     permanent_Adderess_PinCode,
-    permanantDrivingLicence
+  
   } = req.body;
   const RenewDl = new renewDl({
     state,
@@ -75,13 +76,13 @@ exports.createRenewDl = async (req, res) => {
     permanent_Address_Line_1,
     permanent_Address_Line_2,
     permanent_Adderess_PinCode,
-    permanantDrivingLicence
+  
   });
 
 
 RenewDl.save()
-    .then((permanant) => {
-      res.status(201).json({ permanant });
+    .then((renew) => {
+      res.status(201).json({ renew });
     })
     .catch((error) => {
       res.status(400).json({ error: error.message });
@@ -89,7 +90,7 @@ RenewDl.save()
   };
 
   exports.getrenewDl = async (req, res) => {
-    console.log(res);
+    // console.log(res);
     try {
       const getusers = await renewDl.find();
       res.json(getusers);
@@ -114,16 +115,57 @@ RenewDl.save()
         res.status(400).json({ error: error.message });
       });
   };
-  exports.PEDL = (req, res) => {
+  exports.permanantDrivingLicence =async(req, res) => {
     let permanantDrivingLicence;
     if (req.file) {
-      permanantDrivingLicence = req.file.filename;
+      console.log("Pedriving")
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      permanantDrivingLicence =Location;
     }
     renewDl
       .findOneAndUpdate({ _id: req.params.id }, { permanantDrivingLicence })
       .then((data) => {
         res.status(200).json({
           message: "permanant Driving Licence updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.acknowledgmentDocument = async(req, res) => {
+    let acknowledgmentDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      acknowledgmentDocument =Location;
+    }
+    renewDl
+      .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "acknowledgmentDocument updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.finalDocument = async(req, res) => {
+    let finalDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      finalDocument =Location;
+    }
+    renewDl
+      .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "finalDocument updated successfully",
           data,
         });
       })

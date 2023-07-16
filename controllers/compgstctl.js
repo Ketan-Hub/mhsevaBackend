@@ -1,7 +1,9 @@
 const cmpGST = require("../model/compgstmdl");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createcmpGST = async (req, res) => {
   const {
+    retailerName,
     companyName,
     ownerName,
     mobileNO,
@@ -82,10 +84,12 @@ exports.createcmpGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.adharCard = (req, res) => {
+  exports.adharCard =async (req, res) => {
     let adharCard;
     if (req.file) {
-      adharCard = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      adharCard =Location;
     }
     cmpGST
       .findOneAndUpdate({ _id: req.params.id }, { adharCard })
@@ -99,10 +103,12 @@ exports.createcmpGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.electricityBill = (req, res) => {
+  exports.electricityBill =async (req, res) => {
     let electricityBill;
     if (req.file) {
-      electricityBill = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      electricityBill =Location;
     }
     cmpGST
       .findOneAndUpdate({ _id: req.params.id }, { electricityBill })
@@ -116,10 +122,12 @@ exports.createcmpGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.bankPassbook = (req, res) => {
+  exports.bankPassbook = async(req, res) => {
     let bankPassbook;
     if (req.file) {
-      bankPassbook = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      bankPassbook =Location;
     }
     cmpGST
       .findOneAndUpdate({ _id: req.params.id }, { bankPassbook })
@@ -133,10 +141,12 @@ exports.createcmpGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.panCard = (req, res) => {
+  exports.panCard = async(req, res) => {
     let panCard;
     if (req.file) {
-      panCard = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      panCard =Location;
     }
     cmpGST
       .findOneAndUpdate({ _id: req.params.id }, { panCard })
@@ -150,10 +160,12 @@ exports.createcmpGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.passportPhoto = (req, res) => {
+  exports.passportPhoto = async(req, res) => {
     let passportPhoto;
     if (req.file) {
-      passportPhoto = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      passportPhoto =Location;
     }
     cmpGST
       .findOneAndUpdate({ _id: req.params.id }, { passportPhoto })
@@ -167,10 +179,12 @@ exports.createcmpGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.shopAct_licence = (req, res) => {
+  exports.shopAct_licence = async(req, res) => {
     let shopAct_licence;
     if (req.file) {
-      shopAct_licence = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      schoolLeaveCertificate =Location;
     }
     cmpGST
       .findOneAndUpdate({ _id: req.params.id }, { shopAct_licence })
@@ -184,10 +198,12 @@ exports.createcmpGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.rentAgreement = (req, res) => {
+  exports.rentAgreement = async(req, res) => {
     let rentAgreement;
     if (req.file) {
-      rentAgreement = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      rentAgreement =Location;
     }
     cmpGST
       .findOneAndUpdate({ _id: req.params.id }, { rentAgreement })
@@ -201,16 +217,56 @@ exports.createcmpGST = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.signature = (req, res) => {
+  exports.signature =async (req, res) => {
     let signature;
     if (req.file) {
-      signature = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      signature =Location;
     }
     cmpGST
       .findOneAndUpdate({ _id: req.params.id }, { signature })
       .then((data) => {
         res.status(200).json({
           message: "electricity Bill updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.acknowledgmentDocument = async(req, res) => {
+    let acknowledgmentDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      acknowledgmentDocument =Location;
+    }
+    cmpGST
+      .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "acknowledgmentDocument updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.finalDocument = async(req, res) => {
+    let finalDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      finalDocument =Location;
+    }
+    cmpGST
+      .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "finalDocument updated successfully",
           data,
         });
       })

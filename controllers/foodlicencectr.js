@@ -1,7 +1,9 @@
 const foodlicence = require("../model/foodLicencemdl");
+const uploadToS3 = require('../validator/midalware');
 
 exports.createfoodlicence = async (req, res) => {
   const {
+    retailerName,
     no_OF_years,
     title,
     firstName,
@@ -22,6 +24,7 @@ exports.createfoodlicence = async (req, res) => {
    
   } = req.body;
   const Foodlicence = new foodlicence({
+    retailerName,
     no_OF_years,
     title,
     firstName,
@@ -76,10 +79,12 @@ exports.createfoodlicence = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.adharCard_businessOwner = (req, res) => {
+  exports.adharCard_businessOwner =async(req, res) => {
     let adharCard_businessOwner;
     if (req.file) {
-      adharCard_businessOwner = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      adharCard_businessOwner =Location;
     }
     foodlicence
       .findOneAndUpdate({ _id: req.params.id }, { adharCard_businessOwner })
@@ -93,10 +98,12 @@ exports.createfoodlicence = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.passportSize_Photo_businessOwner = (req, res) => {
+  exports.passportSize_Photo_businessOwner =async (req, res) => {
     let passportSize_Photo_businessOwner;
     if (req.file) {
-      passportSize_Photo_businessOwner = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      passportSize_Photo_businessOwner =Location;
     }
     foodlicence
       .findOneAndUpdate({ _id: req.params.id }, { passportSize_Photo_businessOwner })
@@ -110,10 +117,12 @@ exports.createfoodlicence = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.declaration_businessOwner = (req, res) => {
+  exports.declaration_businessOwner = async(req, res) => {
     let declaration_businessOwner;
     if (req.file) {
-      declaration_businessOwner = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      declaration_businessOwner =Location;
     }
     foodlicence
       .findOneAndUpdate({ _id: req.params.id }, { declaration_businessOwner })
@@ -127,10 +136,12 @@ exports.createfoodlicence = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.affidavitFrom_businessOwner = (req, res) => {
+  exports.affidavitFrom_businessOwner = async(req, res) => {
     let affidavitFrom_businessOwner;
     if (req.file) {
-      affidavitFrom_businessOwner = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      affidavitFrom_businessOwner =Location;
     }
     foodlicence
       .findOneAndUpdate({ _id: req.params.id }, { affidavitFrom_businessOwner })
@@ -144,10 +155,12 @@ exports.createfoodlicence = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.electricBill_businessPlace = (req, res) => {
+  exports.electricBill_businessPlace =async(req, res) => {
     let electricBill_businessPlace;
     if (req.file) {
-      electricBill_businessPlace = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      electricBill_businessPlace =Location;
     }
     foodlicence
       .findOneAndUpdate({ _id: req.params.id }, { electricBill_businessPlace })
@@ -161,16 +174,57 @@ exports.createfoodlicence = async (req, res) => {
         res.status(400).json({ error: error.message });
       });
   };
-  exports.rentAgreement = (req, res) => {
+  exports.rentAgreement = async(req, res) => {
     let rentAgreement;
     if (req.file) {
-      rentAgreement = req.file.filename;
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      rentAgreement =Location;
     }
     foodlicence
       .findOneAndUpdate({ _id: req.params.id }, { rentAgreement })
       .then((data) => {
         res.status(200).json({
           message: "electricBill businessPlace updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+
+  exports.acknowledgmentDocument = async(req, res) => {
+    let acknowledgmentDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      acknowledgmentDocument =Location;
+    }
+    foodlicence
+      .findOneAndUpdate({ _id: req.params.id }, { acknowledgmentDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "acknowledgmentDocument updated successfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
+  };
+  exports.finalDocument = async(req, res) => {
+    let finalDocument;
+    if (req.file) {
+      let fileData = req.file.buffer;
+      let { Location } = await uploadToS3(fileData);
+      finalDocument =Location;
+    }
+    foodlicence
+      .findOneAndUpdate({ _id: req.params.id }, { finalDocument })
+      .then((data) => {
+        res.status(200).json({
+          message: "finalDocument updated successfully",
           data,
         });
       })

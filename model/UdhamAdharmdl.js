@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const UdhamAdharSchema = mongoose.Schema({
+  application_type:{type:String},
+  status:{type:String},
+  createdBy:{type:String},
+  createdByName:{type:String},
   Title: { type: String, required: true,enum:['Mr','MRS','Ms'] },
   Owner_Name: { type: String, required: true },
   PAN_Card: { type: String, required: true },
@@ -18,7 +22,12 @@ const UdhamAdharSchema = mongoose.Schema({
   Bank_Name: { type: String, required: true },
   Bank_Account_Number: { type: Number, required: true },
   Bank_IFSC_Code: { type: String, required: true },
+  formPrice :{type: Number},
+  retailerName:{type:String},
+  note:{type:String},
   //uploads
+  acknowledgmentDocument:{type:String},
+  finalDocument:{type:String},
   Aadhar_Upload_Card: { type: String},
   Pan_Upload_Card: { type: String },
   Passport: { type: String },
