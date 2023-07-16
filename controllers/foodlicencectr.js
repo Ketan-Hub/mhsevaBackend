@@ -3,6 +3,10 @@ const uploadToS3 = require('../validator/midalware');
 
 exports.createfoodlicence = async (req, res) => {
   const {
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     retailerName,
     no_OF_years,
     title,
@@ -24,6 +28,10 @@ exports.createfoodlicence = async (req, res) => {
    
   } = req.body;
   const Foodlicence = new foodlicence({
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     retailerName,
     no_OF_years,
     title,

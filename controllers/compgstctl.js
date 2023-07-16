@@ -3,7 +3,11 @@ const uploadToS3 = require('../validator/midalware');
 
 exports.createcmpGST = async (req, res) => {
   const {
-    retailerName,
+    
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     companyName,
     ownerName,
     mobileNO,
@@ -27,6 +31,10 @@ exports.createcmpGST = async (req, res) => {
    
   } = req.body;
   const CmpGST = new cmpGST({
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     companyName,
     ownerName,
     mobileNO,

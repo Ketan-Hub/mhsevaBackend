@@ -4,7 +4,7 @@ const LearningDLSchema = mongoose.Schema(
   {
     createdById: { type: String },
     createdByName: { type: String },
-    apllication_Type: { type: String },
+    application_type: { type: String },
     status: { type: String },
     state: { type: String },
     rto: { type: String },

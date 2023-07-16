@@ -3,6 +3,10 @@ const uploadToS3 = require('../validator/midalware');
 
 exports.createpassport = async (req, res) => {
   const {
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     typeApplication,
     typePassport,
     title,
@@ -40,6 +44,10 @@ exports.createpassport = async (req, res) => {
     zipAllDocuments
   } = req.body;
   const Passport = new passport({
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     typeApplication,
     typePassport,
     title,

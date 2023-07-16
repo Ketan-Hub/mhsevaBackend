@@ -3,7 +3,10 @@ const uploadToS3 = require('../validator/midalware');
 
 exports.createE_gazzet = async (req, res) => {
   const {
-    retailerName,
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     service_type,
     type_cast,
     title,
@@ -33,6 +36,10 @@ exports.createE_gazzet = async (req, res) => {
    
   } = req.body;
   const E_gazzet = new e_gazzet({
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     service_type,
     type_cast,
     title,

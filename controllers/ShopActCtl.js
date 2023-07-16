@@ -3,6 +3,10 @@ const uploadToS3 = require('../validator/midalware');
 
 exports.createshopAct = async (req, res) => {
   const {
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     selectType,
     title,
     firstName,
@@ -50,6 +54,10 @@ exports.createshopAct = async (req, res) => {
     oldShopAct_ForRenewal,
   } = req.body;
   const ShopAct = new shopAct({
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     selectType,
     title,
     firstName,

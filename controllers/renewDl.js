@@ -3,6 +3,10 @@ const uploadToS3 = require('../validator/midalware');
 
 exports.createRenewDl = async (req, res) => {
   const {
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     state,
     rto,
     vehical_type,
@@ -41,6 +45,10 @@ exports.createRenewDl = async (req, res) => {
   
   } = req.body;
   const RenewDl = new renewDl({
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     state,
     rto,
     vehical_type,

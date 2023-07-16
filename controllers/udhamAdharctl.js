@@ -3,6 +3,10 @@ const uploadToS3 = require('../validator/midalware');
 
 exports.createudhamAbhar = async (req, res) => {
   const {
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     Title,
     Owner_Name,
     PAN_Card,
@@ -28,6 +32,10 @@ exports.createudhamAbhar = async (req, res) => {
     Bank_Upload_Passbook
   } = req.body;
   const UdhamAbhar = new udhamabhar({
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     Title,
     Owner_Name,
     PAN_Card,

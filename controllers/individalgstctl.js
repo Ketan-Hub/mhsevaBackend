@@ -3,6 +3,10 @@ const uploadToS3 = require('../validator/midalware');
 
 exports.createindGST = async (req, res) => {
   const {
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     customerName,
     address,
     mobileNO,
@@ -20,6 +24,10 @@ exports.createindGST = async (req, res) => {
    
   } = req.body;
   const IndGST = new indGST({
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     customerName,
     address,
     mobileNO,

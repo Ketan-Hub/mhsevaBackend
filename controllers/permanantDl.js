@@ -3,6 +3,10 @@ const uploadToS3 = require('../validator/midalware');
 
 exports.createPermanntDl = async (req, res) => {
   const {
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     state,
     rto,
     vehical_type,
@@ -42,6 +46,10 @@ exports.createPermanntDl = async (req, res) => {
     ageProof,
   } = req.body;
   const PermanantDl = new permanantDl({
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     state,
     rto,
     vehical_type,

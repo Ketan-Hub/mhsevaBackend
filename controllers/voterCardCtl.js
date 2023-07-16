@@ -3,6 +3,10 @@ const uploadToS3 = require('../validator/midalware');
 
 exports.createvoterCard = async (req, res) => {
   const {
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     assembly_Parliamentary_Constituency,
     request_name_electoral_roll_Constituency,
     name,
@@ -42,6 +46,10 @@ exports.createvoterCard = async (req, res) => {
     age_declaration_form,
   } = req.body;
   const VoterCard = new voterCard({
+    application_type,
+    status,
+    createdBy,
+    createdByName,
     assembly_Parliamentary_Constituency,
     request_name_electoral_roll_Constituency,
     name,

@@ -9,10 +9,10 @@ const individualGST_Schema=mongoose.Schema(
         
         customerName:{type:String,},
         address:{type:String,},
-        mobileNO:{type:Number,},
+        mobileNO:{type:String,},
         email:{type:String,},
         panCard:{type:String,},
-        adharCard:{type:Number,},
+        adharCard:{type:String,},
         formPrice :{type: Number},
         note:{type:String},
         //uploads

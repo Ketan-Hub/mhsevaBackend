@@ -30,7 +30,7 @@ exports.createLearningDl = async (req, res) => {
     createdById,
     createdByName,
     status,
-    apllication_Type,
+    application_type,
     state,
     rto,
     vehical_type,
@@ -76,7 +76,7 @@ exports.createLearningDl = async (req, res) => {
   const LearningDl = new learningDl({
     createdById,
     createdByName,
-    apllication_Type,
+    application_type,
     status,
     state,
     rto,
