@@ -31,6 +31,9 @@ router.get('/shopact/:id', require('../controllers/ShopActCtl').getsingleshopAct
 // Delete renew routes
 router.delete('/shopact/:id', require('../controllers/ShopActCtl').deleteshopAct);
 
+router.put('/shopact/:id', require('../controllers/ShopActCtl').updateshopAct);
+
+
 // Update renew routes
 router.put('/shopact_ownerPassportPhoto/:id' ,upload.single("ownerPassport_photo"), require('../controllers/ShopActCtl').ownerPassport_photo);
 router.put('/shopact_ownerSignatureAsPer_PAN/:id' ,upload.single("ownerSignatureAsPer_PAN"), require('../controllers/ShopActCtl').ownerSignatureAsPer_PAN);

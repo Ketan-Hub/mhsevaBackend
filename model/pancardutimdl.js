@@ -10,6 +10,7 @@ const panCardUTI_schema=mongoose.Schema(
         NO_coupons:{type:Number,},
         isAccept:{type:String,default:false},
         totalAmount:{type:Number,},
+        transactionID:{type:String}
 
         
     },

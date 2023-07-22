@@ -34,5 +34,6 @@ router.delete('/passport/:id', require('../controllers/passportctl').deletepassp
 router.put('/passport/:id' , require('../controllers/passportctl').updatepassport);
 router.put('/passport_acknowledgmentDocument/:id' ,upload.single("acknowledgmentDocument"), require('../controllers/passportctl').acknowledgmentDocument);
 router.put('/passport_zipAllDocuments/:id' , upload.single("zipAllDocuments"),require('../controllers/passportctl').zipAllDocuments);
+router.put('/passport_finalDocumentDocument/:id' ,upload.single("finalDocument"), require('../controllers/passportctl').finalDocument);
 
 module.exports=router;
