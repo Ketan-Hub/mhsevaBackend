@@ -1,19 +1,10 @@
 const User = require("../../model/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-// const shortid = require("shortid");
-
-
-// const generateJwtToken = (_id, role) => {
-//   return jwt.sign({ _id, role }, process.env.JWT_SECRET, {
-//     expiresIn: "1d",
-//   });
-// };
-
 exports.signup = async (req, res) => {
   try{
+    console.log(req.body)
     const find = await User.findOne({ email: req.body.email })
-    console.log(find)
     if(find){
       return res.status(400).json({
               error: "User already registered",
@@ -23,6 +14,9 @@ exports.signup = async (req, res) => {
        name,
       email,
       mobileNumber,
+      agent_formPrice,
+      retaile_formPrice,
+      username,
       district,
       tehsil,
       village,
@@ -43,6 +37,9 @@ exports.signup = async (req, res) => {
         tehsil,
         village,
         role,
+        agent_formPrice,
+        retaile_formPrice,
+        username,
         area,
         address1,
         address2,
@@ -60,6 +57,7 @@ exports.signup = async (req, res) => {
       res.status(400).json({ error: error.message });
     });
   }catch(err){
+    console.log(err)
     res.status(500).json({ err: err})
   }
 

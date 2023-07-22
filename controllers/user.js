@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 // const shortid = require("shortid");
 
-
 // const generateJwtToken = (_id, role) => {
 //   return jwt.sign({ _id, role }, process.env.JWT_SECRET, {
 //     expiresIn: "1d",
@@ -11,77 +10,101 @@ const bcrypt = require("bcrypt");
 // };
 
 exports.signup = (req, res) => {
+  console.log("ok")
   User.findOne({ email: req.body.email }).exec(async (error, user) => {
     if (user)
       return res.status(400).json({
         error: "User already registered",
       });
 
-    const { name, email, secretCode } = req.body;
+    const {
+      name,
+      email,
+      mobileNumber,
+      district,
+      tehsil,
+      village,
+      role,
+      agent_formPrice,
+      retaile_formPrice,
+      username,
+      area,
+      address1,
+      address2,
+      agent,
+      agentMargin,
+      tehsilServices,
+      password,
+    
+    } = req.body;
+    console.log(req.body)
     // const hash_password = await bcrypt.hash(password, 10);
     const _user = new User({
-        name,
-        email,
-        mobileNumber,
-        district,
-        tehsil,
-        village,
-        role,
-        area,
-        address1,
-        address2,
-        agent,
-        agentMargin,
-        tehsilServices,
-        password,
-       
-
+      name,
+      email,
+      mobileNumber,
+      district,
+      tehsil,
+      village,
+      role,
+      agent_formPrice,
+      retaile_formPrice,
+      username,
+      area,
+      address1,
+      address2,
+      agent,
+      agentMargin,
+      tehsilServices,
+      password,
     });
 
     _user.save((error, data) => {
       if (error) {
+        console.log(data)
         return res.status(400).json({
           message: "Something went wrong",
         });
       }
-      if(data){
+      if (data) {
         return res.status(201).json({
-            message:"User created successfully",
-            user:data
-        })
+          message: "User created successfully",
+          user: data,
+        });
       }
     });
   });
 };
 
-
 exports.signin = async (req, res) => {
   try {
     let { email, password } = req.body;
     User.findOne({ email }).exec(async (error, user) => {
-      if (error) { return res.status(400).json({ message: "Something went wrong" }) }
+      if (error) {
+        return res.status(400).json({ message: "Something went wrong" });
+      }
       if (user) {
         const isPassword = await user.matchPassword(password);
-        console.log(isPassword)
+        console.log(isPassword);
         if (isPassword) {
           const token = await user.generateToken();
           const { _id, name, email, role, mobileNo, profilePicture } = user;
-          res.cookie('token', token, { expiresIn: '1d' });
+          res.cookie("token", token, { expiresIn: "1d" });
           res.status(200).json({
             token,
-            user: { _id, name, email, role, mobileNo, profilePicture }
-          })
+            user: { _id, name, email, role, mobileNo, profilePicture },
+          });
         } else {
-          return res.status(400).json({ message: "Invalid Password" })
+          return res.status(400).json({ message: "Invalid Password" });
         }
       } else {
-        return res.status(400).json({ message: "Something went wrong" })
+        return res.status(400).json({ message: "Something went wrong" });
       }
-    })
+    });
   } catch (err) {
-    res.status(400).json({ message: "Something went wrong" })
+    res.status(400).json({ message: "Something went wrong" });
   }
-}
+};
 
 // exports.updateUser = (req,res)=>{
 //   User.findOneAndUpdate({_id:req.params.id} ,(req.body),{new:true},(err,data)=>{
@@ -132,7 +155,7 @@ exports.getone = async (req, res) => {
   }
 };
 
-exports.getusers= async (req, res) => {
+exports.getusers = async (req, res) => {
   console.log(res);
   try {
     const getusers = await User.find();

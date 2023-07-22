@@ -112,11 +112,6 @@ exports.createLearningDl = async (req, res) => {
     permanent_Address_Line_1,
     permanent_Address_Line_2,
     permanent_Adderess_PinCode,
-    addressProof,
-    ageProof,
-    passportSize,
-    signature,
-    ApllicationType: "LearningDl",
   });
 
   LearningDl.save()

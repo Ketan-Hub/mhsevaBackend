@@ -201,14 +201,14 @@ exports.updateNonCriminal= (req, res) => {
 
 
 exports.reshaCard =async (req, res) => {
-  let reshaCard;
+  let reshanCard;
   if (req.file) {
     let fileData = req.file.buffer;
     let { Location } = await uploadToS3(fileData);
-    reshaCard =Location;
+    reshanCard =Location;
   }
   NonCriminal
-    .findOneAndUpdate({ _id: req.params.id }, { reshaCard })
+    .findOneAndUpdate({ _id: req.params.id }, { reshanCard })
     .then((data) => {
       res.status(200).json({
         message: "reshaCard updated successfully",

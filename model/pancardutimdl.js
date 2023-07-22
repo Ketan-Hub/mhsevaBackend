@@ -3,12 +3,14 @@ const mongoose=require('mongoose')
 
 const panCardUTI_schema=mongoose.Schema(
     {
+        retaierId:{string:String},
         retailerName:{type:String},
-        panType:{type:String,enum:['new pan','company pan','minor pan','marriage pan','correction pan']},
-        couponType:{type:String,enum:['coupons with pan']},
+        panType:{type:String},
+        couponType:{type:String},
         NO_coupons:{type:Number,},
+        isAccept:{type:String,default:false},
         totalAmount:{type:Number,},
-        formPrice :{type: Number},
+
         
     },
     {timestamps:true}

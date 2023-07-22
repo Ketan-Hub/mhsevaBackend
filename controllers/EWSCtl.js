@@ -3,7 +3,7 @@ const uploadToS3 = require('../validator/midalware');
 
 exports.createEws = async (req, res) => {
   const {
-    retailerName,
+  
     application_type,
     status,
     createdBy,
@@ -224,7 +224,7 @@ exports.createEws = async (req, res) => {
     Income_others,
     total,
     formPrice,
-    retailerName,
+   
 
   });
 

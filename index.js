@@ -53,6 +53,8 @@ app.use("/api", require("./routes/nonCriminalrouts"));
 app.use("/api", require("./routes/EwsRout"));
 app.use("/api", require("./routes/rechargerout"));
 app.use("/api", require("./routes/formPriceRts"));
+app.use("/api", require("./routes/valletrout"));
+app.use("/api", require("./routes/WithrowWallet"));
 
 app.post('/translate', async (req, res) => {
   translate(req.body.text, { from: 'en', to: 'mr' }).then(response => {

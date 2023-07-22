@@ -35,6 +35,6 @@ router.delete('/renew/:id', require('../controllers/renewDl').deleterenewDl);
 router.put('/renew/:id' , require('../controllers/renewDl').updaterenewDl);
 router.put('/renew_PElicence/:id' ,upload.single("permanantDrivingLicence"), require('../controllers/renewDl').permanantDrivingLicence);
 router.put('/renew_acknowledgmentDocument/:id' ,upload.single("acknowledgmentDocument"), require('../controllers/renewDl').acknowledgmentDocument);
-router.put('/renew_permanantDrivingLicence/:id' ,upload.single("permanantDrivingLicence"), require('../controllers/renewDl').permanantDrivingLicence);
+router.put('/renew_finalDocument/:id' ,upload.single("finalDocument"), require('../controllers/renewDl').finalDocument);
 
 module.exports=router;

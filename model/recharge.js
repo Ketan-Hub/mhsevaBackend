@@ -1,6 +1,7 @@
 const mongoose =require("mongoose");
 const recharge =mongoose.Schema(
     {
+        userName:{type:String},
         user:{type:String},
         mode:{type:String},
         amount:{type:Number},

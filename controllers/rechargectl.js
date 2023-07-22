@@ -1,9 +1,10 @@
 const recharge = require("../model/recharge");
 
 exports.createrecharge = async (req, res) => {
-  const { user, mode, amount, isExpence, expenceFor } = req.body;
+  const { userName,user, mode, amount, isExpence, expenceFor } = req.body;
   console.log(user)
   const Recharge = new recharge({
+    userName,
     user,
     mode,
     amount,
@@ -13,6 +14,7 @@ exports.createrecharge = async (req, res) => {
 
   Recharge.save()
     .then((data) => {
+      console.log(17,data)
       res.status(201).json({ data });
     })
     .catch((error) => {

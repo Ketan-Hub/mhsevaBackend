@@ -2,11 +2,11 @@ const { body } = require("express-validator");
 const mongoose = require("mongoose");
 const EWSSChema = mongoose.Schema(
   {
-    application_type:{type:String},
-    status:{type:String},
+    application_type: { type: String },
+    status: { type: String },
     createdBy: { type: String },
     createdByName: { type: String },
-      Data:{
+    Data: {
       statusfname: { type: String },
       fullName_English: { type: String },
       fullName_Marathi: { type: String },
@@ -28,7 +28,7 @@ const EWSSChema = mongoose.Schema(
       Applicant_taluka: { type: String },
       Applicant_village: { type: String },
       Applicant_pincode: { type: Number },
-      },
+    },
     benificiary_info: {
       relationOfBanificiaryWithApplicant: { type: String },
       Benificiary_Name_English: { type: String },
@@ -48,8 +48,7 @@ const EWSSChema = mongoose.Schema(
       Benificiary_taluka: { type: String },
       Benificiary_village: { type: String },
       Benificiary_pincode: { type: String },
-      benificiary_cast: { type: String }
-
+      benificiary_cast: { type: String },
     },
     permanant_address: {
       permanant_address: { type: String },
@@ -91,7 +90,7 @@ const EWSSChema = mongoose.Schema(
       benificiaryFather_PinCode: { type: String },
       benificiaryFather_cast: { type: String },
     },
-    land_info:{
+    land_info: {
       land_salutation: { type: String },
       land_holderName_english: { type: String },
       land_holderName_marathi: { type: String },
@@ -110,21 +109,19 @@ const EWSSChema = mongoose.Schema(
     Income_investment: { type: String },
     Income_others: { type: String },
     total: { type: String },
-    formPrice :{type: Number},
-    retailerName:{type:String},
-    note:{type:String},
+    formPrice: { type: Number },
+    note: { type: String },
     //uploads
-    acknowledgmentDocument:{type:String},
-    finalDocument:{type:String},
-    reshaCard:{type:String},
-    adharCard:{type:String},
-    lightBill:{type:String},
-    schoolLeaveCertificate:{type:String},
-    photo:{type:String},
-    incomeCertficate3yearOrForm16:{type:String},
-    castProof:{type:String},
-    selfDeclearation:{type:String},
-  
+    acknowledgmentDocument: { type: String },
+    finalDocument: { type: String },
+    reshaCard: { type: String },
+    adharCard: { type: String },
+    lightBill: { type: String },
+    schoolLeaveCertificate: { type: String },
+    photo: { type: String },
+    incomeCertficate3yearOrForm16: { type: String },
+    castProof: { type: String },
+    selfDeclearation: { type: String },
   },
   { timestamps: true }
 );
