@@ -39,5 +39,5 @@ router.put('/votercard_PassportSizePhoto/:id' ,upload.single("PassportSize_photo
 router.put('/votercard_ageDeclarationForm/:id' ,upload.single("age_declaration_form"), require('../controllers/voterCardCtl').age_declaration_form);
 router.put('/votercard_acknowledgmentDocument/:id' ,upload.single("acknowledgmentDocument"), require('../controllers/voterCardCtl').acknowledgmentDocument);
 router.put('/votercard_finalDocumentDocument/:id' ,upload.single("finalDocument"), require('../controllers/voterCardCtl').finalDocument);
-
+ 
 module.exports=router;
