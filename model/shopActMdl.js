@@ -1,0 +1,71 @@
+const mongoose=require('mongoose')
+
+
+const ShopAct_shema=mongoose.Schema(
+    {
+
+        application_type:{type:String},
+        status:{type:String},
+        createdBy:{type:String},
+        createdByName:{type:String},
+        selectType:{type:String,},
+        title:{type:String,enum:['Mr','Mrs','Ms'],},
+        firstName:{type:String,},
+        middleName:{type:String,},
+        lastName:{type:String,},
+        mobileNo:{type:Number,},
+        email:{type:String,},
+        adharNumber:{type:Number,},
+        mobileNumber_registered_WithAdharCard:{type:String,},
+        gender:{type:String,enum:['male','female','others'],},
+        dob:{type:String,},
+        residenceAddress_same_AadharAddress:{type:String,},
+        residenceAddress:{type:String,},
+        no_of_years_staying_in_residenceAddress:{type:Number,},
+        shopName:{type:String,},
+        shopAddress_with_Pincode:{type:String,},
+        IsShop_Rented:{type:String,},
+        natureOfBusiness:{type:String,},
+        dateBusiness_Started:{type:String,},
+        number_of_Employees:{type:Number,},
+        number_of_MenEmployees:{type:Number,},
+        number_of_WomenEmployees:{type:Number,},
+        Partner1_Name:{type:String},
+        Partner1_mobileNumber:{type:Number},
+        Partner1_email:{type:String},
+        Partner1_address:{type:String},
+        Partner2_Name:{type:String},
+        Partner2_mobileNumber:{type:Number},
+        Partner2_email:{type:String},
+        Partner2_address:{type:String},
+        Partner3_Name:{type:String},
+        Partner3_mobileNumber:{type:Number},
+        Partner3_email:{type:String},
+        Partner3_address:{type:String},
+        Partner4_Name:{type:String},
+        Partner4_mobileNumber:{type:Number},
+        Partner4_email:{type:String},
+        Partner4_address:{type:String},
+        formPrice :{type: Number},
+        retailerName:{type:String},
+        note:{type:String},
+    isNew:{type:Boolean,default:true},
+    rejNote:{type:String},
+    subNote:{type:String},
+    compNote:{type:String},
+
+        //uploads
+        acknowledgmentDocument:{type:String},
+        finalDocument:{type:String},
+        ownerPassport_photo:{type:String,},
+        ownerSignatureAsPer_PAN:{type:String,},
+        adharCard:{type:String,},
+        shopPhotographFrom_FrontSide_WithBusinessBoard:{type:String,},
+        selfDeclaration:{type:String,},
+        ownerPANCard:{type:String,},
+        oldShopAct_ForRenewal:{type:String,}
+    },
+    {timestamps:true}
+)
+
+module.exports=mongoose.model('shopAct',ShopAct_shema)
