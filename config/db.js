@@ -6,12 +6,19 @@ dotenv.config({path:'./config/.env'});
  const {APP_PORT,MONGODB_URI} = process.env;
 mongoose.set('strictQuery',true);
 const connectDB = ()=>{
-    mongoose.
-    connect(MONGODB_URI,{
-        dbName:"MHeSeva"
-    })
-        .then(con=> console.log('Database Connected: '+ con.connection.host))
-        .catch(err=>console.log(100,err));
+    mongoose.connect("mongodb+srv://ketangaikwad:" +
+    encodeURIComponent("Gorakh@123") +
+    "@cluster0.qsabcsl.mongodb.net/mydb", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName:"MHeSeva"
+  })
+  .then(() => {
+    console.log("Successfully connected to MongoDB");
+  })
+  .catch((err) => {
+    console.error("Error connecting to MongoDB:", err);
+  });
 }
 module.exports={connectDB}
 // export const closeDB = ()=>{

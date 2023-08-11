@@ -20,7 +20,10 @@ exports.createindGST = async (req, res) => {
     passportPhoto,
     shopAct_licence,
     rentAgreement,
-    signature
+    signature,
+    rejNote,
+    subNote,
+    compNote,
    
   } = req.body;
   const IndGST = new indGST({
@@ -41,7 +44,10 @@ exports.createindGST = async (req, res) => {
     passportPhoto,
     shopAct_licence,
     rentAgreement,
-    signature
+    signature,
+    rejNote,
+    subNote,
+    compNote,
   });
 
 

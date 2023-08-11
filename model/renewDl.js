@@ -110,6 +110,8 @@ const RenewDLSchema = mongoose.Schema(
       type: String,
     
     },
+    isNew:{type:Boolean,default:true},
+
 
     present_Address_Distict: {
       type: String,
@@ -140,6 +142,9 @@ const RenewDLSchema = mongoose.Schema(
       type: String,
     
     },
+    rejNote:{type:String},
+    subNote:{type:String},
+    compNote:{type:String},
     note:{type:String},
     //uploads
     acknowledgmentDocument:{type:String},
@@ -149,6 +154,7 @@ const RenewDLSchema = mongoose.Schema(
       type: String,
     },
   },
+  
 
   {
     timestamps: true,

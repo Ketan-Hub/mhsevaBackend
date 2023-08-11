@@ -15,6 +15,11 @@ const individualGST_Schema=mongoose.Schema(
         adharCard:{type:String,},
         formPrice :{type: Number},
         note:{type:String},
+    isNew:{type:Boolean,default:true},
+    rejNote:{type:String},
+    subNote:{type:String},
+    compNote:{type:String},
+
         //uploads
         acknowledgmentDocument:{type:String},
         finalDocument:{type:String},

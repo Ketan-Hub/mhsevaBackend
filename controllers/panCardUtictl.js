@@ -9,7 +9,8 @@ exports.createpanUti = async (req, res) => {
     NO_coupons,
     isAccept,
     totalAmount,
-    transactionID
+    transactionID,
+    isNew
   } = req.body;
   const PanUti = new panUti({
     retaierId,
@@ -19,7 +20,8 @@ exports.createpanUti = async (req, res) => {
     NO_coupons,
     isAccept,
     totalAmount,
-    transactionID
+    transactionID,
+    isNew
   });
 
   PanUti.save()

@@ -15,6 +15,8 @@ const userSchema = mongoose.Schema(
     address1: { type: String },
     address2: { type: String },
     agent: { type: String },
+    userProfile:{type:String},
+    istehsil:{type:Boolean,default:true},
     agent_formPrice: {
       agent_nonCriminal: { type: Number },
       agent_EWS: { type: Number },
@@ -50,7 +52,7 @@ userSchema.methods = {
   },
   generateToken: async function () {
     return jwt.sign(
-      { _id: this._id, email: this.email, role: this.role },
+      { _id: this._id, username: this.username, role: this.role },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );

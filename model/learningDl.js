@@ -42,6 +42,11 @@ const LearningDLSchema = mongoose.Schema(
     permanant_Address_Line_2: { type: String },
     permanant_Adderess_PinCode: { type: Number },
     note:{type:String},
+    isNew:{type:Boolean,default:true},
+    rejNote:{type:String},
+    subNote:{type:String},
+    compNote:{type:String},
+
     //uploads
     acknowledgmentDocument:{type:String},
     finalDocument:{type:String},

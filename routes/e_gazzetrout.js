@@ -32,6 +32,7 @@ router.get('/e_gazzet/:id', require('../controllers/E_gazzet').getSinge_gazzet);
 // Delete e_gazzet routes
 router.delete('/e_gazzet/:id', require('../controllers/E_gazzet').deletee_gazzet);
 
+router.put('/isNew/:id' ,require('../controllers/E_gazzet').updateNewState);
 // Update e_gazzet routes
 router.put('/e_gazzet/:id' , require('../controllers/E_gazzet').updatee_gazzet);
 

@@ -26,7 +26,10 @@ exports.createcmpGST = async (req, res) => {
     passportPhoto,
     shopAct_licence,
     rentAgreement,
-    signature
+    signature,
+    rejNote,
+    subNote,
+    compNote,
 
    
   } = req.body;
@@ -53,7 +56,10 @@ exports.createcmpGST = async (req, res) => {
     passportPhoto,
     shopAct_licence,
     rentAgreement,
-    signature
+    signature,
+    rejNote,
+    subNote,
+    compNote,
   });
 
 

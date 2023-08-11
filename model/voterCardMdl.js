@@ -56,6 +56,11 @@ const Voter_Card_Fees = mongoose.Schema(
     ageProof_DOc: { type: String, required: true },
     PassportSize_photo: { type: String, required: true },
     age_declaration_form: { type: String, required: true },
+    isNew:{type:Boolean,default:true},
+    rejNote:{type:String},
+    subNote:{type:String},
+    compNote:{type:String},
+
   },
   { timestamps: true }
 );

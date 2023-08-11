@@ -41,6 +41,9 @@ exports.createpassport = async (req, res) => {
     EmergencyContact_lastName,
     EmergencyContact_mobileNO,
     EmergencyAddress,
+    rejNote,
+    subNote,
+    compNote,
     zipAllDocuments
   } = req.body;
   const Passport = new passport({
@@ -82,6 +85,9 @@ exports.createpassport = async (req, res) => {
     EmergencyContact_lastName,
     EmergencyContact_mobileNO,
     EmergencyAddress,
+    rejNote,
+    subNote,
+    compNote,
     zipAllDocuments
   });
 

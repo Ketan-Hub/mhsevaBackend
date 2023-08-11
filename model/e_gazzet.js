@@ -42,7 +42,9 @@ const gazetteSchema=mongoose.Schema(
       reason:{type:String,},
 
       address:{type:String,},
-      note:{type:String},
+      rejNote:{type:String},
+      subNote:{type:String},
+      compNote:{type:String},
       //uploads
       acknowledgmentDocument:{type:String},
       finalDocument:{type:String},
@@ -64,7 +66,7 @@ const gazetteSchema=mongoose.Schema(
       Cast_Certificate:{type:String},
       formPrice :{type: Number},
       retailerName:{type:String},
-
+      isNew:{type:Boolean,default:true}
 
     },
     {timestamps:true}

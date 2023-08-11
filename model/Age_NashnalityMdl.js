@@ -29,7 +29,7 @@ const AgeNashnalitySchema = mongoose.Schema(
     taluka: { type: String },
     village: { type: String },
     pincode: { type: Number },
-    onAddressLiveing: { type: Number },
+    onAddressLiveing: { type: String },
     currentlivingInyear: { type: String },
     Applicunt_Live_In_MH_Inyear: { type: String },
     relationApplicant_beneficiary: { type: String },
@@ -78,6 +78,11 @@ const AgeNashnalitySchema = mongoose.Schema(
     MigrationBeneficiaryArray:{type:Array},
     FMemberBeneficiaryArray:{type:Array},
     note:{type:String},
+    isNew:{type:Boolean,default:true},
+    rejNote:{type:String},
+    subNote:{type:String},
+    compNote:{type:String},
+    
     //uploads
     acknowledgmentDocument:{type:String},
     finalDocument:{type:String},

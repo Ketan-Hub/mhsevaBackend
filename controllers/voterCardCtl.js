@@ -44,6 +44,9 @@ exports.createvoterCard = async (req, res) => {
     ageProof,
     PassportSize_photo,
     age_declaration_form,
+    rejNote,
+    subNote,
+    compNote,
   } = req.body;
   const VoterCard = new voterCard({
     application_type,
@@ -87,6 +90,9 @@ exports.createvoterCard = async (req, res) => {
     ageProof,
     PassportSize_photo,
     age_declaration_form,
+    rejNote,
+    subNote,
+    compNote,
   });
 
   VoterCard.save()

@@ -42,6 +42,11 @@ const passportSchema=mongoose.Schema(
         EmergencyContact_mobileNO:{type:Number,},
         EmergencyAddress:{type:String,},
         note:{type:String},
+    isNew:{type:Boolean,default:true},
+    rejNote:{type:String},
+    subNote:{type:String},
+    compNote:{type:String},
+
         //uploads
         acknowledgmentDocument:{type:String},
         finalDocument:{type:String},

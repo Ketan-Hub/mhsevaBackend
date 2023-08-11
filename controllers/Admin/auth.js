@@ -140,19 +140,21 @@ exports.signup = async (req, res) => {
 
 exports.signin = async (req, res) => {
   try {
-    let { email, password } = req.body;
-    User.findOne({ email })
+    let { username, password } = req.body;
+    console.log(144,username)
+    User.findOne({ username })
     .then( async (user)=>{
+      console.log(147,user);
       if (user) {
         const isPassword = await user.matchPassword(password);
         console.log(isPassword)
         if (isPassword) {
           const token = await user.generateToken();
-          const { _id, name, email, role, mobileNo, profilePicture } = user;
+          const { _id, name, username, role, mobileNo, profilePicture } = user;
           res.cookie('token', token, { expiresIn: '1d' });
           res.status(200).json({
             token,
-            user: { _id, name, email, role, mobileNo, profilePicture }
+            user: { _id, name, username, role, mobileNo, profilePicture }
           })
         } else {
           return res.status(400).json({ message: "Invalid Password" })
@@ -162,26 +164,7 @@ exports.signin = async (req, res) => {
       }
     })
         
-    // exec(async (error, user) => {
-    //   if (error) { return res.status(400).json({ message: "Something went wrong" }) }
-    //   if (user) {
-    //     const isPassword = await user.matchPassword(password);
-    //     console.log(isPassword)
-    //     if (isPassword) {
-    //       const token = await user.generateToken();
-    //       const { _id, name, email, role, mobileNo, profilePicture } = user;
-    //       res.cookie('token', token, { expiresIn: '1d' });
-    //       res.status(200).json({
-    //         token,
-    //         user: { _id, name, email, role, mobileNo, profilePicture }
-    //       })
-    //     } else {
-    //       return res.status(400).json({ message: "Invalid Password" })
-    //     }
-    //   } else {
-    //     return res.status(400).json({ message: "Something went wrong" })
-    //   }
-    // })
+  
   } catch (err) {
     res.status(400).json({ message: "Something went wrong" })
   }

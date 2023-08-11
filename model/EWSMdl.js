@@ -111,6 +111,9 @@ const EWSSChema = mongoose.Schema(
     total: { type: String },
     formPrice: { type: Number },
     note: { type: String },
+    rejNote:{type:String},
+    subNote:{type:String},
+    compNote:{type:String},
     //uploads
     acknowledgmentDocument: { type: String },
     finalDocument: { type: String },
@@ -122,6 +125,8 @@ const EWSSChema = mongoose.Schema(
     incomeCertficate3yearOrForm16: { type: String },
     castProof: { type: String },
     selfDeclearation: { type: String },
+    isNew:{type:Boolean,default:true},
+
   },
   { timestamps: true }
 );

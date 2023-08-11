@@ -23,7 +23,10 @@ exports.createfoodlicence = async (req, res) => {
     declaration_businessOwner,
     affidavitFrom_businessOwner,
     electricBill_businessPlace,
-    rentAgreement
+    rentAgreement,
+    rejNote,
+    subNote,
+    compNote,
 
    
   } = req.body;
@@ -48,7 +51,10 @@ exports.createfoodlicence = async (req, res) => {
     declaration_businessOwner,
     affidavitFrom_businessOwner,
     electricBill_businessPlace,
-    rentAgreement
+    rentAgreement,
+    rejNote,
+    subNote,
+    compNote,
   });
 
 

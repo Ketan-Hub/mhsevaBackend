@@ -42,6 +42,9 @@ exports.createPermanntDl = async (req, res) => {
     permanent_Address_Line_1,
     permanent_Address_Line_2,
     permanent_Adderess_PinCode,
+    rejNote,
+    subNote,
+    compNote,
     addressProof,
     ageProof,
   } = req.body;
@@ -85,6 +88,9 @@ exports.createPermanntDl = async (req, res) => {
     permanent_Address_Line_1,
     permanent_Address_Line_2,
     permanent_Adderess_PinCode,
+    rejNote,
+    subNote,
+    compNote,
     // addressProof,
     // ageProof,
   });

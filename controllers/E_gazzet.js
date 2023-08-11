@@ -33,6 +33,10 @@ exports.createE_gazzet = async (req, res) => {
     OldName_Proof,
     PresentName_Proof,
     Cast_Certificate,
+    isNew,
+    rejNote,
+    subNote,
+    compNote,
    
   } = req.body;
   const E_gazzet = new e_gazzet({
@@ -66,6 +70,10 @@ exports.createE_gazzet = async (req, res) => {
     OldName_Proof,
     PresentName_Proof,
     Cast_Certificate,
+    isNew,
+    rejNote,
+    subNote,
+    compNote,
   });
 
 
@@ -305,4 +313,17 @@ exports.createE_gazzet = async (req, res) => {
           res.status(400).json({ error: error.message });
         });
   
+  };
+  exports.updateNewState = async(req, res) => {
+    e_gazzet
+      .findOneAndUpdate({ _id: req.params.id }, { isNew:false })
+      .then((data) => {
+        res.status(200).json({
+          message: "isNew uccessfully",
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error.message });
+      });
   };

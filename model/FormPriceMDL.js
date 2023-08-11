@@ -55,6 +55,8 @@ const formPrice = mongoose.Schema(
     renew_MCWOG_MCWG_LMV_TR: { type: Number },
     panCard: { type: Number },
     voterCard: { type: Number },
+    isNew:{type:Boolean,default:true},
+
 
   },
   { timestamps: true }

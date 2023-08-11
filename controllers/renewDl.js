@@ -42,6 +42,9 @@ exports.createRenewDl = async (req, res) => {
     permanent_Address_Line_1,
     permanent_Address_Line_2,
     permanent_Adderess_PinCode,
+    rejNote,
+    subNote,
+    compNote,
   
   } = req.body;
   const RenewDl = new renewDl({
@@ -84,6 +87,9 @@ exports.createRenewDl = async (req, res) => {
     permanent_Address_Line_1,
     permanent_Address_Line_2,
     permanent_Adderess_PinCode,
+    rejNote,
+    subNote,
+    compNote,
   
   });
 

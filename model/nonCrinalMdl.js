@@ -76,15 +76,20 @@ const nonCriminalSChema = mongoose.Schema(
     NonCreamyLayerincomeSource:{type:Array},
     occupation_income:{type:Array},
     note:{type:String},
+    isNew:{type:Boolean,default:true},
+    rejNote:{type:String},
+    subNote:{type:String},
+    compNote:{type:String},
+
     //uploads
     acknowledgmentDocument:{type:String},
     finalDocument:{type:String},
-    reshaCard:{type:String},
+    reshanCard:{type:String},
     adharCard:{type:String},
     lightBill:{type:String},
-    SchoolLeaveCertificate:{type:String},
+    schoolLeaveCertificate:{type:String},
     photo:{type:String},
-    incomeCertificate3year:{type:String},
+    incomeCertficate3year:{type:String},
     castCertificate:{type:String},
     taxRecipt:{type:String}  
   },

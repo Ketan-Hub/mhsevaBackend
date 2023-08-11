@@ -8,7 +8,7 @@ exports.createIncomeCer = async (req, res) => {
     createdBy,
     createdByName,
     Data:{
-     
+    statusfname,
     fullName_English,
     fullName_Marathi,
     fatherName_english,
@@ -42,6 +42,9 @@ exports.createIncomeCer = async (req, res) => {
     family,
     distibutionOfIncomefromAgri,
     incomeSource,
+    rejNote,
+    subNote,
+    compNote,
 
 
 } = req.body;
@@ -51,7 +54,7 @@ exports.createIncomeCer = async (req, res) => {
     createdBy,
     createdByName,
     Data:{
-  
+      statusfname,
     fullName_English,
     fullName_Marathi,
     fatherName_english,
@@ -83,7 +86,10 @@ exports.createIncomeCer = async (req, res) => {
   },
   family,
   distibutionOfIncomefromAgri,
-  incomeSource
+  incomeSource,
+  rejNote,
+  subNote,
+  compNote,
    
   
 })

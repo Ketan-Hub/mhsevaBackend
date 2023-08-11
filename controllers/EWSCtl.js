@@ -112,6 +112,9 @@ exports.createEws = async (req, res) => {
     Income_others,
     total,
     formPrice,
+    rejNote,
+    subNote,
+    compNote,
     
    
   } = req.body;
@@ -224,6 +227,9 @@ exports.createEws = async (req, res) => {
     Income_others,
     total,
     formPrice,
+    rejNote,
+    subNote,
+    compNote,
    
 
   });

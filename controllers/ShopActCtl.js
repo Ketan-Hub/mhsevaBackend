@@ -52,6 +52,9 @@ exports.createshopAct = async (req, res) => {
     selfDeclaration,
     ownerPANCard,
     oldShopAct_ForRenewal,
+    rejNote,
+    subNote,
+    compNote,
   } = req.body;
   const ShopAct = new shopAct({
     application_type,
@@ -103,6 +106,9 @@ exports.createshopAct = async (req, res) => {
     selfDeclaration,
     ownerPANCard,
     oldShopAct_ForRenewal,
+    rejNote,
+    subNote,
+    compNote,
   });
 
   ShopAct.save()

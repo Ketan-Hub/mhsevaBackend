@@ -44,6 +44,7 @@ exports.createNonCriminal = async (req, res) => {
     previos_CastCerNum,
     previos_CastCerPlaceIssue,
     previos_CastCerIssuedDate,
+    
     propowner,
     txtLocation,
     txtarea,
@@ -77,6 +78,9 @@ exports.createNonCriminal = async (req, res) => {
     },
     NonCreamyLayerincomeSource,
     occupation_income ,
+    rejNote,
+    subNote,
+    compNote,
 
 
 } = req.body;
@@ -154,7 +158,10 @@ exports.createNonCriminal = async (req, res) => {
     ctl00$CPH$Affd
     },
     NonCreamyLayerincomeSource,
-    occupation_income 
+    occupation_income ,
+    rejNote,
+    subNote,
+    compNote,
     
 })
 

@@ -54,7 +54,6 @@ const permanantsDLSchema = mongoose.Schema(
     gender: {
       type: String,
       
-      enum: ["male", "female", "others"],
     },
 
     Dob: {
@@ -99,6 +98,8 @@ const permanantsDLSchema = mongoose.Schema(
     identification_mark2: {
       type: Number,
     },
+    isNew:{type:Boolean,default:true},
+
 
     emergency_mobNo: {
       type: Number,
@@ -150,6 +151,9 @@ const permanantsDLSchema = mongoose.Schema(
     ageProof: {
       type: String,
     },
+    rejNote:{type:String},
+    subNote:{type:String},
+    compNote:{type:String},
   
   },
 

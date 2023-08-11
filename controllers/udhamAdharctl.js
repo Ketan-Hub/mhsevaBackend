@@ -29,7 +29,10 @@ exports.createudhamAbhar = async (req, res) => {
     emergency_mobNo,
     Pan_Upload_Card,
     Passport,
-    Bank_Upload_Passbook
+    Bank_Upload_Passbook,
+    rejNote,
+    subNote,
+    compNote,
   } = req.body;
   const UdhamAbhar = new udhamabhar({
     application_type,
@@ -59,6 +62,9 @@ exports.createudhamAbhar = async (req, res) => {
     Pan_Upload_Card,
     Passport,
     Bank_Upload_Passbook,
+    rejNote,
+    subNote,
+    compNote,
   });
 
 

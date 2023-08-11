@@ -6,7 +6,7 @@ const incomeCerSchema = mongoose.Schema(
     createdBy:{type:String},
     createdByName:{type:String},
     Data:[{
-    // statusfname: { type: String},
+    statusfname: { type: String},
     fullName_English: { type: String },
     fullName_Marathi: { type: String },
     fatherName_english: { type: String },
@@ -36,13 +36,14 @@ const incomeCerSchema = mongoose.Schema(
     ReasonOfincome_get:{type:String},
     IncomeDOcsName: { type: String },
     formPrice :{type: Number}
-
     }],
     family: {type:Array},
     distibutionOfIncomefromAgri: {type:Array},
     incomeSource:{type:Array},
     retailerName:{type:String},
-    note:{type:String},
+    rejNote:{type:String},
+    subNote:{type:String},
+    compNote:{type:String},
     //uploads
     acknowledgmentDocument:{type:String},
     finalDocument:{type:String},
@@ -52,7 +53,9 @@ const incomeCerSchema = mongoose.Schema(
     photo:{type:String},
     form16:{type:String},
     consentform:{type:String},
-    selfDeclearation:{type:String}
+    selfDeclearation:{type:String},
+    isNew:{type:Boolean,default:true},
+
   },
   { timestamps: true }
 );
