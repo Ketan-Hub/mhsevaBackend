@@ -28,6 +28,7 @@ exports.signup = async (req, res) => {
       password,
       agentMargin,
       tehsilServices } = req.body;
+      //created By Ketan
     // const hash_password = await bcrypt.hash(password, 10);
     const _user = new User({
         name,
